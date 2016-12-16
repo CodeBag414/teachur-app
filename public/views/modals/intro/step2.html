@@ -1,0 +1,23 @@
+<div class="text-center mbb">
+    <h1>{{ 'modal.intro.step2.letsGetStarted' | translate }}</h1>
+    <img ng-src="{{user.twitterImage}}" ng-if="!user.image && user.twitterImage" alt=""
+         class="img-circle img80_80">
+    <img ng-src="{{user.facebookImage}}" ng-if="!user.image && user.facebookImage" alt=""
+         class="img-circle img80_80">
+    <img ng-src="{{user.image.url}}" ng-if="!user.croppedImage && user.image" alt=""
+         class="img-circle img80_80">
+    <img ng-src="{{user.googleImage}}" ng-if="!user.image && user.googleImage" alt=""
+         class="img-circle img80_80">
+    <img ng-src="{{user.croppedImage.url}}" ng-if="user.croppedImage" alt=""
+         class="img-circle img80_80">
+    <form name="form" style="margin-top: 20px;">
+        <div>
+            <p>{{file.name}}</p>
+            <div class="btn btn-default" ngf-select ng-model="file" name="file" ngf-change="fileChange(file)" ngf-pattern="'image/*'"
+                 accept="image/*" ngf-max-size="20MB" ngf-min-height="100" data-translate="file.choose">
+            </div>
+            <button class="btn btn-primary" type="submit" ng-click="submitImage()" ng-disabled="!file" data-translate="file.upload"></button>
+        </div>
+    </form>
+    <h3 ng-bind-html="'modal.intro.step2.profilePicture' | translate | htmlSafe"></h3>
+</div>

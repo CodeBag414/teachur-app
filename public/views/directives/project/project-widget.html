@@ -1,0 +1,21 @@
+<div class="panel" ng-class="getPanelClass()" ng-show="projects.length">
+  <div class="panel-heading" ng-show="itemName !== 'lesson'"> {{'directives.project' | translate}}</div>
+  <div class="panel-heading" ng-show="itemName === 'lesson'"> {{'directives.activity' | translate}}</div>
+  <div class="panel-body">
+    <div ng-show="projects.length" ng-repeat="project in projects" style="margin-bottom: 15px;">
+      <p>
+        {{ project.description }}
+      </p>
+      <p ng-show="userProjects[project._id]" ng-repeat="userProject in userProjects[project._id]" class="text-center">
+      		<a href="{{ userProject.file.url }}" target="_blank">{{ userProject.file.name || userProject.file.url }}</a>
+      </p>
+      <p ng-show="!userProjects[project._id] && itemName === 'lesson'" class="text-center">
+          {{ 'directives.activity.noSubmittedProject' | translate }}
+      </p>
+
+      <p ng-show="!userProjects[project._id] && itemName !== 'lesson'" class="text-center">
+          {{ 'directives.project.noSubmittedProject' | translate }}
+      </p>
+    </div>
+  </div>
+</div>

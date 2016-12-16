@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 data-translate="modal.cropimage.title"></h3>
+</div>
+<div class="modal-body">
+    <div class="img-crop-container" style="position:relative;height: 150px;width: 100%" id="profile-img-crop">
+        <img-crop image="image.url" result-image="croppedImage" area-type="{{cropAreaType}}"
+                  on-change="refreshData(croppedBlob)" area-coords="cropCoordinates"
+                  result-blob="croppedBlob"
+                  chargement="Loading"></img-crop>
+    </div>
+    <div>
+        <img ng-src="{{croppedImage}}" class="img-responsive center-block"/>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submit(croppedBlob)" data-translate="label-submit"></button>
+    <button class="btn btn-warning" ng-click="cancel()" data-translate="label-cancel"></button>
+</div>

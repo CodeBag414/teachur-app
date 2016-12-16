@@ -1,0 +1,27 @@
+<div class="Reply">
+  <img class="img-circle img-sm Reply-img" ng-src="{{reply.author | userImage}}" alt="User Image">
+  <span class="Reply-user">
+    {{reply.author.username}}
+    <span class="Reply-date text-muted pull-right">{{reply.date | date :short }}</span>
+  </span>
+  <div class="Reply-text">
+    <span ng-show="!editMode || !isOwn()">{{reply.discussionReplyBody}}</span>
+    <form name="replyCreateForm" ng-if="isOwn()" ng-show="editMode">
+
+
+      <textarea  rows="3" class="form-control input-sm Reply-updateInput" placeholder="{{'replies.text.placeholder' | translate}}" ng-model="reply.discussionReplyBody"></textarea>
+
+      <button class="btn btn-primary btn-sm Reply-btnSm" data-translate="label-cancel" ng-click="cancel()"></button>
+      <button class="btn btn-warning btn-sm Reply-btnSm" data-translate="label-update" ng-click="update()"></button>
+
+    </form>
+  </div>
+  <div class="Discussion-btns  Reply-btns" ng-if="isOwn()" ng-show="!editMode">
+    <button   class="btn btn-primary btn-sm Discussion-delete"
+        data-translate="label-delete" ng-click="deleteReply()" ></button>
+      <button   class="btn btn-warning btn-sm Discussion-edit"
+                data-translate="label-edit" ng-click="toggleEditMode()"></button>
+
+  </div>
+
+</div>

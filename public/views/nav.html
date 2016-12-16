@@ -1,0 +1,79 @@
+<div id="nav-wrapper">
+    <ul id="nav"
+        data-collapse-nav
+        data-slim-scroll
+        data-highlight-active>
+        <li><a  id="menu-item-dashboard" ui-sref="dashboard" ng-click="$root.breadcrumbsObject.clear()"> <i class="fa fa-dashboard"><span class="icon-bg bg-danger"></span></i><span
+                data-translate="dashboard"></span></a></li>
+        <li ng-hide="$root.organization">
+            <a ui-sref="degrees.index" id="menu-item-degrees"><i class="fa fa-graduation-cap"><span class="icon-bg bg-warning"></span></i><span
+                    data-translate="degrees"></span></a>
+            <ul>
+                <li class="menu-item-degrees-my" ng-show="!$root.isGuest()"><a ui-sref="degrees.index" ng-click="$root.breadcrumbsObject.clear()"><i
+                        class="fa fa-caret-right"></i><span data-translate="degrees.my" ng-show="!$root.studentView"></span><span data-translate="degrees.enrolled" ng-show="$root.studentView"></span></a></li>
+                <li class="menu-item-degrees-create" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="degrees.create" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="degrees.create"></span></a></li>
+                <li class="menu-item-degrees-search"><a ui-sref="degrees.search" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="degrees.find"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a ui-sref="courses.index"  id="menu-item-courses"><i class="fa fa-th"><span class="icon-bg bg-success"></span></i><span
+                    data-translate="courses"></span></a>
+            <ul class="sub-nav">
+                <li class="menu-item-courses-my" ng-show="!$root.isGuest()"><a ui-sref="courses.index" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="courses.my" ng-show="!$root.studentView"></span><span data-translate="courses.enrolled" ng-show="$root.studentView"></span></a></li>
+                <li class="menu-item-courses-create" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="courses.create" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="courses.create"></span></a></li>
+                <li class="menu-item-courses-search"><a ui-sref="courses.search" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="courses.find"></span></a></li>
+            </ul>
+        </li>
+        <li class="nav-task">
+            <a ui-sref="lessons.index"  id="menu-item-lessons">
+                <i class="fa fa-th-large"><span class="icon-bg bg-info"></span></i><span
+                    data-translate="lessons"></span>
+            </a>
+            <ul class="sub-nav">
+                <li class="menu-item-lessons-my" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="lessons.index" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="lessons.my"></span></a></li>
+                <li class="menu-item-lessons-create" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="lessons.create" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="lessons.create"></span></a></li>
+                <li class="menu-item-lessons-search"><a ui-sref="lessons.search" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="lessons.find"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a ui-sref="objectives.index" id="menu-item-objectives"><i class="fa fa-square"><span
+                    class="icon-bg bg-primary-light"></span></i><span data-translate="objectives"></span></a>
+            <ul class="sub-nav">
+                <li class="menu-item-objectives-my" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="objectives.index" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="objectives.my"></span></a></li>
+                <li class="menu-item-objectives-create" ng-show="!$root.studentView && !$root.isGuest()"><a ui-sref="objectives.create" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="objectives.create"></span></a>
+                </li>
+                <li class="menu-item-objectives-search"><a ui-sref="objectives.search" ng-click="$root.breadcrumbsObject.clear()"><i class="fa fa-caret-right"></i><span data-translate="objectives.find"></span></a></li>
+            </ul>
+        </li>
+        <li ng-show="$root.isAdmin()">
+            <a ui-sref="administration.users"><i class="fa fa-book"><span class="icon-bg bg-default"></span></i><span
+                    data-translate="administration"></span></a>
+            <ul class="sub-nav">
+                <li>
+                    <a ui-sref="administration.users"><i class="fa fa-caret-right"></i><span data-translate="administration.users"></span></a>
+                </li>
+                <li>
+                    <a ui-sref="administration.waitingList">
+                        <i class="fa fa-caret-right"></i><span data-translate="administration.waitinglist" ng-hide="$root.organization"></span>
+                        <span data-translate="inviteUsers" ng-show="$root.organization"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="administration.content">
+                        <i class="fa fa-caret-right"></i><span data-translate="administration.content"></span>
+                    </a>
+                </li>
+                <li ng-hide="$root.organization">
+                    <a ui-sref="administration.settings">
+                        <i class="fa fa-caret-right"></i><span data-translate="administration.settings.emailSettings"></span>
+                    </a>
+                </li>
+                <li ng-hide="$root.organization">
+                    <a ui-sref="administration.organizations">
+                        <i class="fa fa-caret-right"></i><span data-translate="administration.organizations"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

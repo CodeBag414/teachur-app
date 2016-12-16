@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 data-translate="modal.addemail.title"></h3>
+</div>
+<div class="modal-body">
+    <form novalidate name="addEmailForm">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="text" name="userEmail" class="form-control" ng-model="userEmail"
+                           placeholder="{{'modal.addemail.placeholder' | translate}}" ng-required="true">
+                    <div ng-messages="addEmailForm.userEmail.$error" style="color:maroon" role="alert"
+                         ng-if="addEmailForm.userEmail.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submit()" ng-disabled="!addEmailForm.$valid" data-translate="label-send"></button>
+    <button class="btn btn-warning" ng-click="cancel()" data-translate="label-cancel"></button>
+</div>

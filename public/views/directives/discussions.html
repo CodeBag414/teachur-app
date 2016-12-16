@@ -1,0 +1,79 @@
+<div class="col-md-4 right-discussions">
+  <div class="panel panel-default Discussion-panel">
+    <div class="panel-heading"> {{'discussions.title' | translate}}</div>
+      <div class="panel-body Discussions word-wrap" ng-if=" discussions.length > 0" >
+        <div class="panel panel-default Discussion" ng-repeat="discussion in discussions">
+          <div ng-class="{'Discussion-modeEdit' : discussion.author._id == curr_user._id}" class="panel-heading Discussion-head " >
+            <a class="Discussion-img pull-left" href="javascript:;">
+              <img ng-src="{{discussion.author | userImage }}" alt="" class=" img-circle">
+
+            </a>
+            <div class="Discussion-info">
+                <span class="Discussion-title">{{discussion.title}}</span>
+                <span class="Discussion-name">{{discussion.author.username}}</span>
+
+            </div>
+            <span class="Discussion-time">{{discussion.date | date :short }}</span>
+            <button class="Discussion-moreLess"   data-toggle="collapse" data-target="#collapseDis{{$index}}" aria-expanded="false" aria-controls="collapseDis{{$index}}" >...</button>
+
+           </div>
+           <div class="media-body Discussion-body"   >
+
+
+             <div class="Discussion-bodyContaier collapse" id="collapseDis{{$index}}">
+               <div class="Discussion-text">
+                  {{discussion.discussionBody}}
+                </div>
+                <div class="Discussion-btns"  ng-if="discussion.author._id == curr_user._id">
+                  <button   class="btn btn-primary btn-sm Discussion-delete"
+                      data-translate="label-delete" ng-click="showCancelAlert($index)" ></button>
+                    <button   class="btn btn-warning btn-sm Discussion-edit"
+                              data-translate="label-edit"></button>
+
+                </div>
+                <uib-alert  type="danger" ng-show="discussion.showAlert" class="Discussion-alert" ng-if="discussion.author._id == curr_user._id" >
+                  <span class="Discussion-alertText" data-translate="discussions.alert-delete"></span>
+                  <div class="Discussion-alertBtns">
+                    <button class="btn btn-sm btn-secondary" ng-click="showCancelAlert($index)">{{'label-cancel' | translate}}</button>
+                    <button class="btn btn-sm btn-danger" ng-click="deleteDiscussion(discussion._id)">Ok</button>
+                  </div>
+                </uib-alert>
+               <replies discussionid="{{discussion._id}}" discussionreplies="discussion.replies"></replies>
+             </div>
+
+           </div>
+
+        </div>
+
+      </div>
+      <div class="new-discussion Discussion-new" >
+        <button class="btn btn-primary" ng-click="toggleForm()"  ng-hide="isFormActive()">
+         <!--  <span class="glyphicon glyphicon glyphicon-edit"></span> -->
+          {{'discussions.create-new' | translate}}
+        </button>
+        <form name="discussionsCreateForm" class="Discussion-form" ng-show="isFormActive()">
+          <div class="form-group">
+              <label for="objectiveLongDescription"
+                     data-translate="discussion.create.title"></label>
+              <input type="text" name="discussionTitle" class="form-control"
+                        ng-model="discussion.title"
+                        placeholder="{{'discussion.create.title.placeholder' | translate}}"
+                        />
+          </div>
+          <div class="form-group">
+
+              <textarea type="text" name="discussionDiscussionBody" class="form-control"
+                        ng-model="discussion.discussionBody"
+                        placeholder="{{'discussion.create.discussion-body.placeholder' | translate}}"
+                        rows="6"></textarea>
+          </div>
+          <div class="form-group Discussion-formBtns"  >
+            <button   class="btn btn-primary btn-sm Discussion-formBtnCancel"
+                data-translate="label-cancel" ng-click="toggleForm()"></button>
+              <button ng-click="createDiscussion();" class="btn btn-warning btn-sm Discussion-formBtnPublish"
+                       ng-disabled="!discussionsCreateForm.$valid" data-translate="label-post"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>

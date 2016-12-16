@@ -1,0 +1,86 @@
+a, a:active, a:focus, 
+button, button:focus, button:active, 
+.btn, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus {
+    outline: none;
+    outline: 0;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.mr{
+    margin-right: 10px;
+}
+
+.ml{
+    margin-left: 10px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.item-description {
+    position: absolute;
+    top: 0;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+
+}
+
+.hovered {
+    opacity: 1;
+
+    .item-description {
+      opacity: 1;
+    }
+}
+
+.mt{
+    margin-top: 15px;
+}
+
+.mb{
+    margin-bottom: 15px;
+}
+
+.mbb{
+  margin-bottom: 50px;
+}
+
+@mixin word-wrap() {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.word-wrap {
+  @include word-wrap;
+}
+
+.table-sortable th[class*="col-"] {
+  position: relative!important;
+}
+
+.btn-float {
+  margin-top: -8px;
+}
+
+.intro-video-wrap{
+  .thumbnail{
+    margin: auto;
+    background: transparent;
+    border: none;
+  }
+  p{
+    text-align: center;
+  }
+  h3 {
+    display: none;
+  }
+}

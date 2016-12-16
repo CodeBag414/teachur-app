@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h3 class="text-uppercase">{{name}}</h3>
+</div>
+<div class="modal-body">
+    <section class="page">
+        <form name="objCreateForm" ng-submit="create()" novalidate>
+            <div class="row">
+
+                <div class="col-md-12"><!-- start center form -->
+
+                    <div class="form-group">
+                        <label for="objName"><span class="text-capitalize">{{name}}</span> <span ng-hide="name === 'objective'">{{'label-name'| translate }}</span></label>
+                        <input type="text" name="objName" class="form-control" ng-model="createdObject.name"
+                               placeholder="{{'modal.fastcreate.name-placeholder' | translate }}" ng-required="true" ng-if="name !== 'objective'">
+                        <input type="text" name="objName" class="form-control" ng-model="createdObject.name"
+                               placeholder="{{'modal.fastcreate.objective-name-placeholder' | translate }}" ng-required="true" ng-if="name === 'objective'">
+                        <div ng-messages="objCreateForm.objName.$error" style="color:maroon" role="alert"
+                             ng-if="objCreateForm.objName.$dirty">
+                            <div ng-message="required" data-translate="label-required"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-if="name!=='objective'">
+                        <label for="objShortDescription"><span class="text-capitalize">{{name}} </span>
+                            {{'modal.fastcreate.short-description'| translate }}
+                        </label>
+                            <textarea type="text" name="objShortDescription" class="form-control"
+                                      ng-model="createdObject.shortDescription"
+                                      placeholder="{{'modal.fastcreate.short-d-placeholder'|translate }}"
+                                      rows="3" style="resize: none;" ng-required="false"></textarea>
+                        <div ng-messages="objCreateForm.objShortDescription.$error" style="color:maroon"
+                             role="alert" ng-if="objCreateForm.objShortDescription.$dirty">
+                            <div ng-message="required" data-translate="label-required"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" ng-if="name!=='objective'">
+                        <label for="objLongDescription"><span class="text-capitalize">{{name}} </span>
+                          {{'modal.fastcreate.long-description'|translate }}
+                        </label>
+                            <textarea type="text" name="objLongDescription" class="form-control"
+                                      ng-model="createdObject.longDescription" placeholder="{{'modal.fastcreate.long-d-placeholder' | translate}}"
+                                      rows="6" style="resize: none;" ng-required="false"></textarea>
+                        <div ng-messages="objCreateForm.objLongDescription.$error" style="color:maroon"
+                             role="alert" ng-if="objCreateForm.objLongDescription.$dirty">
+                            <div ng-message="required" data-translate="label-required" ></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-right">
+
+                        <button class="btn btn-default" type="button" ng-click="cancel()">
+                          <span class="text-uppercase">{{'label-cancel'|translate }}</span>
+                        </button>
+
+                        <button class="btn btn-primary" type="submit"
+                                ng-disabled="!objCreateForm.$valid"><span
+                                class="text-uppercase">{{'label-save'|translate }}  {{name}}</span></button>
+                     </div>
+
+
+                </div><!-- end center form -->
+
+            </div>
+        </form>
+    </section>
+</div>

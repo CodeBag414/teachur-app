@@ -1,0 +1,188 @@
+.panel.dragging {
+  position: absolute;
+  width: 300px;
+}
+
+.panel-heading {
+  color: #fff;
+  a {
+    color: #fff;
+  }
+
+  .btn-primary {
+    background-color: white;
+    color: $brand-primary;
+    margin-right: 5px;
+
+    &:hover {
+      background-color: $brand-primary;
+      color: white;
+    }
+  }
+
+  .btn-orange {
+    background-color: white;
+    color: $color-orange;
+    border-color: $color-orange;
+
+    &:hover {
+      background-color: $color-orange;
+      color: white;
+    }
+  }
+
+  .panel-title{
+    .item-name{
+      display: inline-block;
+      padding: 0px 26px 0 10px;
+    }
+    .item-actions{
+      display: inline-block;
+      position: absolute;
+      right: 10px;
+      top: 0;
+    }
+
+    .item-actions.fix{
+      top: 10px;
+    }
+  }
+}
+
+.panel-heading:after {
+  clear: both;
+  display: block;
+  content: '';
+}
+
+.panel-with-button-title{
+  line-height: 30px;
+  float: left;
+}
+
+.panel-objective {
+  border-color: #449DD5;
+  .panel-heading {
+    background-color: #449DD5;
+  }
+}
+
+.panel-lesson {
+  border-color: #2EC1CC;
+  .panel-heading {
+    background-color: #2EC1CC;
+  }
+
+  .panel-objective, .panel-primary {
+    border-color: #449DD5;
+    .panel-heading {
+      background-color: #449DD5;
+    }
+  }
+}
+
+.panel-course {
+  border-color: #23AE89;
+  .panel-heading {
+    background-color: #23AE89;
+  }
+
+  .panel-title-name {
+    display: inline-block;
+    width: 90%;
+  }
+
+  .panel-lesson {
+    border-color: #2EC1CC;
+    .panel-heading {
+      background-color: #2EC1CC;
+    }
+  }
+}
+
+.panel-degree {
+  border-color: #FFB61C;
+  .panel-heading {
+    background-color: #FFB61C;
+  }
+
+  .panel-course {
+    border-color: #23AE89;
+    .panel-heading {
+      background-color: #23AE89;
+    }
+
+    .panel-title-name {
+      display: inline-block;
+      width: 90%;
+    }
+  }
+}
+
+.panel-actions {
+  background-color: #fafafa;
+  padding: 5px;
+
+  a {
+    color: #666;
+    margin: 5px 2px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+}
+
+.panel-body {
+  .more {
+    color: #F29120;
+    margin-left: 5px;
+  }
+}
+
+.panel-footer{
+  .btn-enroll{
+    padding: 0;
+    line-height: 1;
+  }
+}
+
+.panel-progress {
+  .panel-heading{
+    height: 35.56px;
+    padding: 10px 0;
+  }
+
+  .panel-title{
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .lesson-progress {
+    background-color: #888;
+    position: absolute;
+    height: 35.56px;
+    margin-top: -10px;
+  }
+}
+
+.view-panel-objective{
+  .panel-heading{
+    position: relative;
+  }
+
+  .actions{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.btn-orange {
+  background-color: #F29120;
+}
+
+.first-panel {
+  margin-top: 62px;
+}

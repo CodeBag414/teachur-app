@@ -1,0 +1,130 @@
+<section class="page">
+    <div class="row">
+
+        <div ui-view="breadcrumbs"></div>
+
+        <div class="col-md-8"><!-- start center form -->
+
+            <uib-tabset class="ui-tab">
+                <uib-tab heading="{{'degrees.view.details' | translate}}">
+
+                    <div class="panel panel-degree" ng-show="degree.private">
+                        <div class="panel-body text-center">
+                            <h4 class="text-primary" data-translate="degrees.view.private"></h4>
+                            <invite-users button-text="{{'label-invite-user' | translate}}"></invite-users>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-degree">
+                        <div class="panel-heading">
+                            <h3 id="item-name" class="panel-title">{{degree.name}} <a ng-show="$root.canUserEdit(degree)"
+                                                                       ui-sref="degrees.edit({id: degree._id})"
+                                                                       class="pull-right">
+                                <i class="fa fa-pencil"></i></a><a role="button"
+                                                                                                ng-show="$root.canUserEdit(degree)"
+                                                                                                ng-click="delete()"
+                                                                                                class="pull-right clickable mr">
+                                <i class="fa fa-trash"></i></a>
+
+                                <a  role="button"
+                                    ng-click="export('csv')"
+                                    class="pull-right clickable mr">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                                <a  role="button"
+                                    ng-click="export('xls')"
+                                    class="pull-right clickable mr">
+                                    <i class="fa fa-file-excel-o"></i>
+                                </a>
+
+                                <label class="pull-right ui-radio-checkbox fix-radio" ng-show="$root.studentView">
+                                    <input name="radio{{$index}}" type="checkbox" ng-init="completed = $root.currentUser.isEnrolled('degree', degree._id)" ng-model="completed" ng-change="$root.currentUser.toggleEnroll('degree', degree._id);">
+                                    <span>{{ 'label-enrolled' | translate }}</span>
+                                </label>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="intro-video-wrap" ng-if="degree.introVideo">
+                                <url-embed url="degree.introVideo"></url-embed>
+                            </div>
+                            <h5 class="item-text-title"
+                                ng-if="degree.author.username ||degree.author.firstName || degree.author.lastName">
+                                {{'label-author'| translate}}: <a ui-sref="userProfile({id: degree.author._id})">{{
+                                degree.author.username ||degree.author.firstName + ' ' + degree.author.lastName }}</a>
+                            </h5>
+                            <h5 class="item-text-title" data-translate="degrees.view.short-description"></h5>
+                            <!-- <h5 class="item-text-title">Short description</h5> -->
+                            <p class="item-text">
+                                {{degree.shortDescription}}
+                            </p>
+                            <h5 class="item-text-title" data-translate="degrees.view.long-description"></h5>
+                            <p class="item-text" ng-show="!showLong" compile="degree.longDescription.substr(0, 250)">
+                            </p>
+                            <p class="item-text" ng-show="showLong" compile="degree.longDescription">
+                            </p>
+                            <p class="text-right" ng-show="degree.longDescription">
+                                <button type="button" class="btn btn-link" ng-click="showLong = !showLong">
+                                    <span ng-show="!showLong">{{ 'label-more' | translate }}</span>
+                                    <span ng-show="showLong">{{ 'label-less' | translate }}</span>
+                                </button>
+                            </p>
+                            <h5 class="item-text-title" data-translate="degrees.view.objectives"></h5>
+                            <!-- <h5 class="item-text-title">Degree aims</h5> -->
+                            <p class="item-text" ng-repeat="goal in degree.goals">
+                                -{{goal}}
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="degrees.view.courses"></h5>
+
+                            <items-list items="degree.components" item-name="'course'" state="state"
+                                        is-draggable="false"></items-list>
+
+                        </div>
+                    </div>
+
+                    <project item="degree" item-name="degree" view-mode="true"></project>
+
+                </uib-tab>
+
+                <uib-tab heading="{{'degrees.view.prerequisites' | translate }}">
+                    <div class="panel panel-degree">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{degree.name}} <a ui-sref="degrees.edit({id: degree._id})"
+                                                                       class="pull-right"><i class="fa fa-pencil"></i></a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <h5 class="item-text-title" data-translate="degrees.view.prerequisites"></h5>
+                            <items-list items="degree.prerequisites" item-name="'degree'" state="state"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" data-translate="degrees.view.related-degrees"></h5>
+                            <items-list items="degree.relatedDegrees" item-name="'degree'" state="state"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" for="keywords" data-translate="degrees.view.keywords"></h5>
+                            <p class="item-text" ng-repeat="keyword in degree.keywords">
+                                {{keyword.text}}
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="forms.create.code"></h5>
+                            <p class="item-text">
+                                {{degree.code}}
+                            </p>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="{{'directives.project' | translate}}">
+                    <project item="degree" item-name="degree" view-mode="true"></project>
+                </uib-tab>
+
+            </uib-tabset>
+
+        </div>
+        <div class="col-sm-4" ng-if="!$root.isGuest()" style="padding-top: 42px;">
+          <project-widget item-name="degree" item="degree"></project-widget>
+          <discussions-panel model="degree" model-name="degree" modelid="{{degree._id}}"></discussions-panel>
+        </div>
+
+    </div>
+</section>

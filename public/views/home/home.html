@@ -1,0 +1,377 @@
+
+<section class="page" ng-show="!$root.studentView">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="callout callout-info" ng-hide="$root.user.username">
+                <h4 data-translate="callout.welcome"></h4>
+                <p >
+                    {{'callout.welcome.complete-profile' | translate}}
+                    <a ui-sref="currentUserProfile" class="callout-1">{{'here' | translate}}</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ui-view="breadcrumbs"></div>
+        <div class="col-md-6">
+            <div class="panel panel-profile">
+                <div class="panel-heading bg-primary clearfix">
+                    <a ui-sref="currentUserProfile" class="pull-left profile">
+                        <img ng-src="{{$root.user.twitterImage}}" ng-if="!$root.user.image && $root.user.twitterImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.facebookImage}}" ng-if="!$root.user.image && $root.user.facebookImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.image.url}}" ng-if="$root.user.image && !$root.user.croppedImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.croppedImage.url}}" ng-if="$root.user.croppedImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{$root.baseUrl}}/images/default-avatar.png" alt="avatar" class="img-circle img80_80" ng-show="!$root.user.image && !$root.user.twitterImage && !$root.user.facebookImage">
+                    </a>
+                    <h3 class="ng-binding">{{ $root.user.username || $root.user.firstName + " " + $root.user.lastName
+                        }}</h3>
+                    <p>{{ $root.user.profession }} <a ui-sref="currentUserProfile" ng-hide="$root.user.profession"><i
+                            class="fa fa-plus"></i>{{'profile.profession.add' | translate}}</a></p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>{{'home.works-at' | translate }}:</strong> {{ $root.user.company }} <a ui-sref="currentUserProfile"
+                                                                               ng-hide="$root.user.company"><i
+                            class="fa fa-plus"></i> {{'profile.company.add' | translate}}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>{{'home.education' | translate }}:</strong> {{ $root.user.education }} <a ui-sref="currentUserProfile"
+                                                                                  ng-hide="$root.user.education"><i
+                            class="fa fa-plus"></i> {{'profile.education.add' | translate}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-warning">
+                            <i class="fa fa-graduation-cap"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ degrees.length }}</p>
+                            <p class="text-muted" data-translate="degrees.created"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-success">
+                            <i class="fa fa-th"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ courses.length }}</p>
+                            <p class="text-muted" data-translate="courses.created"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ lessons.length }}</p>
+                            <p class="text-muted" data-translate="lessons.created"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon box-icon-fix bg-primary">
+                            <i class="fa fa-square"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ objectives.length }}</p>
+                            <p class="text-muted" data-translate="objectives.created"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="my-other-element">
+            <uib-tabset class="ui-tab" active="active">
+
+                 <uib-tab index="0" heading="{{'degrees.my' | translate}}" ng-if="!$root.organization">
+                    <div class="col-md-12 my-block-tab">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeDegrees" type="radio" ng-value="1" ng-model="createdByMeDegrees" ng-change="loadData('degree', createdByMeDegrees)">
+                                <span data-translate="home.createdByMe"></span>
+                            </label>
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeDegrees" type="radio" ng-value="0" ng-model="createdByMeDegrees" ng-change="loadData('degree', createdByMeDegrees)">
+                                <span data-translate="home.myFavorites"></span>
+                            </label>
+                        </div>
+                        <items-list items="degrees" item-name="'degree'" not-order="true"></items-list>
+                        <div class="text-center">
+                            <button type="button" ng-click="loadMore('degrees')" class="mb btn btn-primary" ng-hide="degrees.length==0 || degrees.length<20">
+                                {{'label-load-more' | translate}}
+                            </button>
+                        </div>
+                        <a ui-sref="degrees.create" class="mb" ng-show="degrees.length==0"><i
+                                class="fa fa-plus"></i> {{'degrees.add' | translate}}</a>
+                    </div>
+                </uib-tab>
+
+                 <uib-tab index="1" heading="{{'courses.my' | translate}}">
+                    <div class="col-md-12 my-block-tab">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeCourses" type="radio" ng-value="1" ng-model="createdByMeCourses" ng-change="loadData('course', createdByMeCourses)">
+                                <span data-translate="home.createdByMe"></span>
+                            </label>
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeCourses" type="radio" ng-value="0" ng-model="createdByMeCourses" ng-change="loadData('course', createdByMeCourses)">
+                                <span data-translate="home.myFavorites"></span>
+                            </label>
+                        </div>
+                        <items-list items="courses" class="mb" item-name="'course'"></items-list>
+                        <div class="text-center">
+                            <button type="button" ng-click="loadMore('courses')" class="mb btn btn-primary" ng-hide="courses.length==0 || courses.length<20">
+                                {{'label-load-more' | translate}}
+                            </button>
+                        </div>
+                        <a ui-sref="courses.create" ng-show="courses.length==0"><i
+                                class="fa fa-plus"></i>{{'courses.add' | translate}}</a>
+                    </div>
+                </uib-tab>
+
+                <uib-tab index="2" heading="{{'lessons.my' | translate}}">
+                    <div class="col-md-12 my-block-tab">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeLessons" type="radio" ng-value="1" ng-model="createdByMeLessons" ng-change="loadData('lesson', createdByMeLessons)">
+                                <span data-translate="home.createdByMe"></span>
+                            </label>
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeLessons" type="radio" ng-value="0" ng-model="createdByMeLessons" ng-change="loadData('lesson', createdByMeLessons)">
+                                <span data-translate="home.myFavorites"></span>
+                            </label>
+                        </div>
+                        <items-list items="lessons" class="mb" item-name="'lesson'"></items-list>
+                        <div class="text-center">
+                            <button type="button" ng-click="loadMore('lessons')" class="mb btn btn-primary" ng-hide="lessons.length==0 || lessons.length<20">
+                                {{'label-load-more' | translate}}
+                            </button>
+                        </div>
+                        <a ui-sref="lessons.create" ng-show="lessons.length==0"><i
+                                class="fa fa-plus"></i> {{'lessons.add' | translate}}</a>
+                    </div>
+                </uib-tab>
+
+
+                <uib-tab index="3" heading="{{'objectives.my' | translate}}">
+                    <div class="col-md-12 my-block-tab">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeObjectives" type="radio" ng-value="1" ng-model="createdByMeObjectives" ng-change="loadData('objective', createdByMeObjectives)">
+                                <span data-translate="home.createdByMe"></span>
+                            </label>
+                            <label class="ui-radio grey-tooltip">
+                                <input name="createdByMeObjectives" type="radio" ng-value="0" ng-model="createdByMeObjectives" ng-change="loadData('objective', createdByMeObjectives)">
+                                <span data-translate="home.myFavorites"></span>
+                            </label>
+                        </div>
+                        <items-list items="objectives" class="mb" item-name="'objective'"></items-list>
+                        <div class="text-center">
+                            <button type="button" ng-click="loadMore('objectives')" class="mb btn btn-primary" ng-hide="objectives.length==0 || objectives.length<20">
+                                {{'label-load-more' | translate}}
+                            </button>
+                        </div>
+                        <a ui-sref="objectives.create" ng-show="objectives.length==0"><i
+                                class="fa fa-plus"></i> {{'objectives.add' | translate}}</a>
+                    </div>
+                </uib-tab>
+
+            </uib-tabset>
+        </div>
+    </div>
+</section>
+
+
+<section class="page" ng-show="$root.studentView">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="callout callout-info" ng-hide="$root.user.username">
+                <h4 data-translate="callout.welcome"></h4>
+                <p >
+                    {{'callout.welcome.complete-profile' | translate}}
+                    <a ui-sref="currentUserProfile" class="callout-1">{{'here' | translate}}</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ui-view="breadcrumbs"></div>
+        <div class="col-md-6">
+            <div class="panel panel-profile">
+                <div class="panel-heading bg-primary clearfix">
+                    <a ui-sref="currentUserProfile" class="pull-left profile">
+                        <img ng-src="{{$root.user.twitterImage}}" ng-if="!$root.user.image && $root.user.twitterImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.facebookImage}}" ng-if="!$root.user.image && $root.user.facebookImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.image.url}}" ng-if="$root.user.image && !$root.user.croppedImage"
+                             alt="" class="img-circle img80_80">
+                        <img ng-src="{{$root.user.croppedImage.url}}" ng-if="$root.user.croppedImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{$root.baseUrl}}/images/default-avatar.png" alt="avatar" class="img-circle img80_80"
+                             ng-if="!$root.user.image && !$root.user.twitterImage && !$root.user.facebookImage">
+                    </a>
+                    <h3 class="ng-binding">{{ $root.user.username || $root.user.firstName + " " + $root.user.lastName
+                        }}</h3>
+                    <p>{{ $root.user.profession }} <a ui-sref="currentUserProfile" ng-hide="$root.user.profession"><i
+                            class="fa fa-plus"></i>{{'profile.profession.add' | translate}}</a></p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>{{'home.works-at' | translate }}:</strong> {{ $root.user.company }} <a ui-sref="currentUserProfile"
+                                                                               ng-hide="$root.user.company"><i
+                            class="fa fa-plus"></i> {{'profile.company.add' | translate}}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>{{'home.education' | translate }}:</strong> {{ $root.user.education }} <a ui-sref="currentUserProfile"
+                                                                                  ng-hide="$root.user.education"><i
+                            class="fa fa-plus"></i> {{'profile.education.add' | translate}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6" ng-show="!$root.organization">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-danger">
+                            <i class="fa fa-fire"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.streak }}</p>
+                            <p class="text-muted" data-translate="student.streak"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-warning">
+                            <i class="fa fa-th"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.enrolledDegrees.length }}</p>
+                            <p class="text-muted" data-translate="degrees.enrolled"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.enrolledCourses.length }}</p>
+                            <p class="text-muted" data-translate="courses.enrolled"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon box-icon-fix bg-primary">
+                            <i class="fa fa-graduation-cap"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.completedDegrees.length || 0 }}</p>
+                            <p class="text-muted" data-translate="degrees.earned"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6" ng-show="$root.organization">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-danger">
+                            <i class="fa fa-fire"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.streak }}</p>
+                            <p class="text-muted" data-translate="student.streak"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.enrolledCourses.length }}</p>
+                            <p class="text-muted" data-translate="courses.enrolled"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="my-other-element">
+            <uib-tabset class="ui-tab">
+
+                 <uib-tab heading="{{'degrees.my' | translate}}" ng-if="!$root.organization">
+                    <div class="col-md-12 my-block-tab">
+                        <items-list items="$root.user.enrolledDegrees" item-name="'degree'"></items-list>
+                    </div>
+                </uib-tab>
+
+                 <uib-tab heading="{{'courses.my' | translate}}">
+                    <div class="col-md-12 my-block-tab">
+                        <items-list items="$root.user.enrolledCourses" class="mb" item-name="'course'"></items-list>
+                    </div>
+                </uib-tab>
+
+            </uib-tabset>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,4 @@
+<button type="button" class="btn btn-primary" ng-class="{'btn-sm': smallBtn}" ng-click="open()" ng-show="!editMode && !$root.isGuest()">
+  {{'directives.add-media' | translate}}
+</button>
+<span class="btn-remove-media" ng-click="open()" ng-show="editMode"><i class="fa fa-pencil"></i></span>

@@ -1,0 +1,139 @@
+// Bootstrap, Note: files that has CONTENT changed are "_variables.scss", "_grid.scss"
+// -------------------------
+@import "global/var";
+@import "bootstrap-sass/bootstrap";
+@import "compass/css3";
+@import // UI, uses Bootstrap's variables
+"ui/ui" // Plugins, overrides plugins' style
+, "plugins/bootstrap-slider", "plugins/responsive-tables", "plugins/easypiecharts", "plugins/toastr", "plugins/sparkline", "plugins/jquery-steps", "plugins/textAngular" // ,   "plugins/angular-wizard"
+  // ,   "plugins/bootstrap-tagsinput" // bugs, can not add tag with 'Enter' using AngularJS, even the online demo not works
+
+  // Pages
+, "global/var-pages", "pages/dashboard", "pages/pages", "pages/err", "pages/lock-screen", "pages/tasks", "pages/signin_signup", "pages/profile", "pages/ui", "pages/demo" // sections
+, "sections/nav", "sections/nav-off-canvas", "sections/nav-min", "sections/header", "sections/content", "sections/form", "sections/right-sidebar", "sections/panels", "sections/items", "sections/footer", "sections/pricing", "sections/discussions", "sections/modal", "utilities", "oembed/_oembed";
+
+.btn-orange {
+  color: #fff;
+  background-color: #F29120;
+}
+
+.btn-orange:hover {
+  color: #fff;
+  background-color: darken(#F29120, 15%);
+}
+
+.btn-admin-edit {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 4.6px;
+  padding-top: 4.6px;
+}
+
+.filter-result-info {
+  padding: 7px;
+}
+
+thead th .fa-angle-down, thead th .fa-angle-up {
+  position: absolute;
+  color: #999;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+thead th .fa-angle-up.active, thead th .fa-angle-down.active {
+  color: #1C7EBB;
+}
+
+thead th .fa-angle-up {
+  top: 4px;
+  right: 5px;
+}
+
+thead th .fa-angle-down {
+  top: 18px;
+  right: 5px;
+}
+
+thead th {
+  position: relative;
+}
+
+.my-block-tab {
+  padding-top: 15px;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.manage-search-block {
+  padding-left: 0;
+}
+
+.goal-list-item {
+  margin: 10px;
+}
+
+.goal-list-item .remove-btn:hover {
+  cursor: pointer;
+}
+
+.tooltip {
+  z-index: 20 !important;
+}
+
+#loading-bar .bar {
+  background: #F29120;
+  height: 4px;
+}
+
+.img-embed {
+  height: 270px;
+  width: auto;
+}
+
+.btn-remove-media:hover {
+  cursor: pointer;
+}
+
+#loading-bar-spinner .spinner-icon {
+  width: 18px;
+  height: 18px;
+  border: solid 4px transparent;
+  border-top-color: #F29120;
+  border-left-color: #F29120;
+  border-radius: 10px;
+}
+
+.draggable {
+  cursor: move;
+}
+
+.intro-modal-header {
+  padding: 10px;
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.intro-modal-body {
+  .btn-continue {
+    position: absolute;
+    right: 15px;
+  }
+
+  .btn-skip {
+    position: absolute;
+    left: 15px;
+  }
+}
+
+.text-orange {
+  color: #F29120;
+}
+
+.audio-player {
+  .progress {
+    margin-bottom: 5px;
+  }
+}

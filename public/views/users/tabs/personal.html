@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong data-translate="profile.personal-information"></strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="firstName" data-translate="profile.username"></label>
+                    <input type="text" class="form-control" ng-model="user.username"></div>
+
+                <div class="form-group">
+                    <label data-translate="profile.first-name"></label>
+                    <input type="text" class="form-control" ng-model="user.firstName"></div>
+
+                <div class="form-group">
+                    <label data-translate="profile.last-name"></label>
+                    <input type="text" class="form-control" ng-model="user.lastName"></div>
+
+                <div class="form-group">
+                    <label data-translate="profile.email"></label>
+                    <input type="text" class="form-control" ng-model="user.email"></div>
+
+                <div class="form-group">
+                    <label data-translate="profile.bio"></label>
+                    <textarea type="text" class="form-control" ng-model="user.bio" rows="3"></textarea>
+                </div>
+
+                <div class="form-group" ng-show="$root.isAdmin()">
+                    <label class="ui-checkbox">
+                        <input name="checkbox1" type="checkbox" ng-model="user.isTeacher" ng-required="!user.isStudent">
+                        <span>I am a teacher</span>
+                    </label>
+                </div>
+
+                <div class="form-group" ng-show="$root.isAdmin()">
+                    <label class="ui-checkbox">
+                        <input name="checkbox2" type="checkbox" ng-model="user.isStudent" ng-required="!user.isTeacher">
+                        <span>I am a student</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="saveUser()" data-translate="operations.save"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-6" ng-hide="hideImage">
+        <h3 data-translate="profile.image"></h3>
+        <img ng-src="{{user.twitterImage}}" ng-if="!user.image && user.twitterImage" alt=""
+             class="img-circle img80_80">
+        <img ng-src="{{user.facebookImage}}" ng-if="!user.image && user.facebookImage" alt=""
+             class="img-circle img80_80">
+        <img ng-src="{{user.image.url}}" ng-if="!user.croppedImage && user.image" alt=""
+             class="img-circle img80_80">
+        <img ng-src="{{user.googleImage}}" ng-if="!user.image && user.googleImage" alt=""
+             class="img-circle img80_80">
+        <img ng-src="{{user.croppedImage.url}}" ng-if="user.croppedImage" alt=""
+             class="img-circle img80_80">
+        <button class="btn btn-primary" ng-click="openCropPopup()" ng-hide="false" data-translate="profile.image.crop"></button>
+        <form name="form" style="margin-top: 20px;">
+            <label for="" data-translate="profile.image.upload"></label>
+            <div>
+                <p>{{file.name}}</p>
+                <div class="btn btn-default" ngf-select ng-model="file" name="file" ngf-change="fileChange(file)" ngf-pattern="'image/*'"
+                     accept="image/*" ngf-max-size="20MB" ngf-min-height="100" data-translate="file.choose">
+                </div>
+                <button class="btn btn-primary" type="submit" ng-click="submit()" ng-disabled="!file" data-translate="file.upload"></button>
+            </div>
+        </form>
+    </div>
+</div>

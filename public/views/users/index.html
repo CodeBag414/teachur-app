@@ -1,0 +1,138 @@
+<section class="page">
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" data-translate="statistics"></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-3 text-center">
+                        <h4>{{'administration.activeToday' | translate}}</h4>
+                        <h5>{{statistics.today}}</h5>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h4>{{'administration.activeThisWeek' | translate}}</h4>
+                        <h5>{{statistics.thisWeek}}</h5>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h4>{{'administration.activeThisMonth' | translate}}</h4>
+                        <h5>{{statistics.thisMonth}}</h5>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h4>{{'administration.activeTotal' | translate}}</h4>
+                        <h5>{{statistics.total}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12"><!-- start center form -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="clearfix">
+                        <div class="col-md-4 manage-search-block">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="searchText"
+                                       ng-model-options="{ debounce: 300 }" ng-change="search(searchText)" placeholder="Search...">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="ui-radio grey-tooltip">
+                                    <input name="radio2" type="radio" ng-value="'username'" ng-model="searchType">
+                                    <span data-translate="username"></span>
+                                </label>
+                                <label class="ui-radio grey-tooltip">
+                                    <input name="radio2" type="radio" ng-value="'email'" ng-model="searchType">
+                                    <span data-translate="email"></span>
+                                </label>
+                                <label class="ui-radio grey-tooltip">
+                                    <input name="radio2" type="radio" ng-value="'firstName'" ng-model="searchType">
+                                    <span data-translate="firstName"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-8 filter-result-info">
+                            <p class="pull-left">Showing {{totalCount}}/{{statistics.total}} entries</p>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-bordered" ng-show="filteredData.length>0">
+                        <thead>
+                        <tr>
+                            <th>Username
+                                <span class="fa fa-angle-up" ng-click="order('username')"
+                                      ng-class="{active: row === 'username'}" role="button" tabindex="0"></span>
+                                <span class="fa fa-angle-down" ng-click="order('-username')"
+                                      ng-class="{active: row === '-username'}" role="button" tabindex="0"></span>
+                            </th>
+                            <th>First Name
+                                 <span class="fa fa-angle-up" ng-click="order('firstName') "
+                                       ng-class="{active: row === 'firstName'}" role="button" tabindex="0"></span>
+                                <span class="fa fa-angle-down" ng-click="order('-firstName') "
+                                      ng-class="{active: row === '-firstName'}" role="button" tabindex="0"></span>
+                            </th>
+                            <th>Last Name
+                                 <span class="fa fa-angle-up" ng-click="order('lastName') "
+                                       ng-class="{active: row === 'lastName'}" role="button" tabindex="0"></span>
+                                <span class="fa fa-angle-down" ng-click="order('-lastName') "
+                                      ng-class="{active: row === '-lastName'}" role="button" tabindex="0"></span>
+                            </th>
+                            <th>Email
+                                 <span class="fa fa-angle-up" ng-click="order('email') "
+                                       ng-class="{active: row === 'email'}" role="button" tabindex="0"></span>
+                                <span class="fa fa-angle-down" ng-click="order('-email') "
+                                      ng-class="{active: row === '-email'}" role="button" tabindex="0"></span>
+                            </th>
+                            <th>Teacher/Student</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="user in filteredData">
+                            <td><a ui-sref="userProfile({id: user._id})">{{ user.username }}</a></td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.email || 'N/A'}}</td>
+                            <td>
+                                <select ng-model="usersTeacherStudent[user._id]" ng-change="changeUserRole(user, usersTeacherStudent[user._id])" class="form-control">
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
+                                </select>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-warning btn-sm" ng-show="user.admin"
+                                        ng-click="toggleAdmin(user)">Remove admin role
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" ng-show="!user.admin" ng-click="toggleAdmin(user)">
+                                    Add admin role
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="delete(user)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button ui-sref="administration.editUser({id: user._id})"
+                                        class="btn btn-info btn-admin-edit"><i
+                                        class="fa fa-pencil"></i></button>
+                                <button type="button" class="btn btn-info btn-sm" ng-show="!user.admin && $root.organization" ng-click="openManageMandatoryCoursesPopup(user._id)">
+                                    {{ 'administration.users.manageMandatoryCourses' | translate }}
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="form-group col-md-12 text-center" ng-if="filteredData.length===0 && !dataLoading">
+                        <span data-translate="nothingToShow"></span>
+                    </div>
+                    <div ng-if="dataLoading">
+                        <img src="/fonts/rolling.gif" class="img-responsive center-block" style="height: 40px;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

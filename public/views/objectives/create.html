@@ -1,0 +1,161 @@
+<section class="page">
+    <form name="objectivesCreateForm" ng-submit="createObjective()">
+        <div class="row">
+
+            <div ui-view="breadcrumbs" ng-if="$root.breadcrumbsObject.chainLength>0"></div>
+
+            <div class="col-md-8"><!-- start center form -->
+
+                <div class="panel panel-primary" ng-show="objective.private">
+                    <div class="panel-body text-center">
+                        <h4 class="text-primary" data-translate="lessons.create.private"></h4>
+                        <invite-users button-text="Invite users"></invite-users>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title title-objective panel-with-button-title" data-translate="objective">
+                        </h3>
+                        <div uib-tooltip="You must include a title on order to publish."
+                             tooltip-placement="bottom"
+                             tooltip-trigger="mouseenter" class="pull-right"
+                             tooltip-enable="!objective.name">
+                            <button type="button" class="btn btn-orange btn-sm pull-right" ng-click="publish()"
+                                    data-translate="objectives.create.publish"
+                                    ng-if="!objective.published || objective.private"
+                                    ng-disabled="!objective.name">
+                            </button>
+                        </div>
+                        <button id="save-btn" class="btn btn-primary btn-sm pull-right"
+                                type="button"
+                                data-translate="objectives.create.save"
+                                ng-disabled="!objectivesCreateForm.$valid" ng-click="createObjective();"></button>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label for="name" data-translate="objectives.create.name"></label>
+                            <textarea type="text" name="name" class="form-control" ng-model="objective.name"
+                                      placeholder="{{'objectives.create.name.placeholder' | translate}}" rows="3"
+                                      ng-required="true"></textarea>
+                            <div ng-messages="objectivesCreateForm.name.$error" style="color:maroon" role="alert"
+                                 ng-if="objectivesCreateForm.name.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="mainPanelAdvanced">
+                            <label for="objectiveLongDescription"
+                                   data-translate="objectives.create.long-description"></label>
+                            <text-angular ng-model="objective.longDescription"></text-angular>
+                        </div>
+                        <div class="form-group">
+                            <label for="objectiveShortDescription">{{'objectives.create.recommended-media' | translate}}
+                                <add-media files="objective.recommendedMedia" small-btn="true"></add-media>
+                            </label>
+
+                            <view-files files="objective.recommendedMedia"></view-files>
+                        </div>
+                        
+                        <a role="button" ng-show="!mainPanelAdvanced" ng-click="mainPanelAdvanced = !mainPanelAdvanced"
+                           class="pull-right clickable">{{'directives.morefields.advanced' | translate}} <i
+                                class="fa fa-angle-down"></i></a>
+                        <a role="button" ng-show="mainPanelAdvanced" ng-click="mainPanelAdvanced = !mainPanelAdvanced"
+                           class="pull-right clickable">{{'directives.morefields.basic' | translate}} <i
+                                class="fa fa-angle-up"></i></a>
+                    </div>
+                </div>
+
+                <assessment item="objective" item-name="objective" edit-mode="true"></assessment>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="objectives.create.objective-information"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <label data-translate="objectives.create.prerequisites"></label>
+
+                        <items-list items="objective.prerequisites" item-name="'objective'"
+                                    is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-objective"
+                             ng-drop-success="onDropCompletePrerequisites($data,$event)" class="create-drop-zone">
+                            <p data-translate="objectives.create.drop.prerequisites"></p>
+                        </div>
+
+                        <label data-translate="objectives.create.related-objectives"></label>
+
+                        <items-list items="objective.relatedObjectives" item-name="'objective'" state="state"
+                                    is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-objective"
+                             ng-drop-success="onDropCompleteRelated($data,$event)" class="create-drop-zone">
+                            <p data-translate="objectives.create.drop.related-objectives"></p>
+                        </div>
+
+                        <div keywords="objective.keywords" edit-mode="true"></div>
+
+                        <div class="form-group">
+                            <label for="code" data-translate="forms.create.code"></label>
+                            <input type="text" name="code" class="form-control" ng-model="objective.code"
+                                      placeholder="{{'forms.create.code' | translate}}">
+                            <div ng-messages="objectivesCreateForm.code.$error" style="color:maroon" role="alert"
+                                 ng-if="objectivesCreateForm.code.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg pull-right"
+                                    data-translate="objectives.create.save" ng-disabled="!objectivesCreateForm.$valid"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-primary" ng-if="!objective.published || objective.private">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="objectives.create.publish"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-2" style="padding-left: 0;">{{'objectives.create.visibility.title' |
+                                translate}}:</label>
+                            <div class="col-sm-10">
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'objectives.create.private.tooltip' | translate}}">
+                                    <input name="radio1" type="radio" ng-value="true" ng-model="objective.private"
+                                           ng-disabled="!$root.user.subscribed">
+                                    <span data-translate="private"></span>
+                                </label>
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'objectives.create.public.tooltip' | translate}}">
+                                    <input name="radio2" type="radio" ng-value="false" ng-model="objective.private">
+                                    <span data-translate="public"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center" ng-show="!$root.user.subscribed">
+                            <h4 class="text-primary" data-translate="objectives.create.private.upgrade"></h4>
+                            <payment-modal button-text="{{'upgrade-now' | translate}}"></payment-modal>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-orange btn-lg pull-right" ng-click="publish()"
+                                    data-translate="objectives.create.publish" ng-disabled="!objective.name"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- end center form -->
+
+            <sidebar related-models="['objective']"></sidebar>
+
+        </div>
+    </form>
+</section>

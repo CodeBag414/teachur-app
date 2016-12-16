@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong data-translate="profile.professional-information"></strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="firstName" data-translate="profile.profession"></label>
+                    <input type="text" class="form-control" ng-model="user.profession"></div>
+
+                <div class="form-group">
+                    <label data-translate="profile.company"></label>
+                    <input type="text" class="form-control" ng-model="user.company"></div>
+
+                <div class="form-group">
+                    <label data-translate="degrees"></label>
+                    <div class="input-group" ng-repeat="degree in user.degrees">
+                        <input type="text" class="form-control" ng-model="degree.name" placeholder="{{'degree' | translate}}">
+                        <div class="input-group-addon" ng-click="user.degrees.splice($index, 1)"><i class="fa fa-trash clickable"></i></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="user.degrees.push({})">{{ 'operations.add' | translate }} {{ 'degree' | translate }}</button>
+                </div>
+
+                <div class="form-group text-right">
+                    <button type="button" class="btn btn-primary" ng-click="saveUser()" data-translate="operations.save"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

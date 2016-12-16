@@ -1,0 +1,177 @@
+<section class="page">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-profile">
+                <div class="panel-heading bg-primary clearfix">
+                    <a ui-sref="userProfile" class="pull-left profile">
+                        <img ng-src="{{user.twitterImage}}" ng-if="!user.image && user.twitterImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{user.facebookImage}}" ng-if="!user.image && user.facebookImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{user.image.url}}" ng-if="user.image && !user.croppedImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{user.croppedImage.url}}" ng-if="user.croppedImage" alt=""
+                             class="img-circle img80_80">
+                        <img ng-src="{{$root.baseUrl}}/images/default-avatar.png" alt="avatar" class="img-circle img80_80"
+                             ng-if="!user.image && !user.twitterImage && !user.facebookImage">
+                    </a>
+                    <h3 class="ng-binding">{{ user.username || user.firstName + " " + user.lastName }}</h3>
+                    <p ng-show="user.profession">{{ user.profession }}</p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-show="user.company">
+                        <strong>Works at:</strong> {{ user.company }}
+                    </li>
+                    <li class="list-group-item" ng-show="user.education">
+                        <strong>Education:</strong> {{ user.education }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6" ng-hide="$root.organization">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-warning">
+                            <i class="fa fa-graduation-cap"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ degrees.length }}</p>
+                            <p class="text-muted">Degrees created</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-success">
+                            <i class="fa fa-th"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ courses.length }}</p>
+                            <p class="text-muted">Courses created</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ lessons.length }}</p>
+                            <p class="text-muted">Lessons created</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-primary">
+                            <i class="fa fa-square"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ objectives.length }}</p>
+                            <p class="text-muted">Objectives created</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6" ng-show="$root.organization">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-danger">
+                            <i class="fa fa-fire"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.streak }}</p>
+                            <p class="text-muted" data-translate="student.streak"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel mini-box">
+                        <span class="box-icon bg-info">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                        <div class="box-info">
+                            <p class="size-h2">{{ $root.user.enrolledCourses.length }}</p>
+                            <p class="text-muted" data-translate="courses.enrolled"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" ng-hide="$root.organization">
+        <div class="col-md-12" id="my-other-element">
+            <uib-tabset class="ui-tab">
+
+                <uib-tab heading="Objectives">
+                    <div class="col-md-12">
+                        <items-list items="objectives" item-name="'objective'"></items-list>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="Lessons">
+                    <div class="col-md-12">
+                        <items-list items="lessons" item-name="'lesson'"></items-list>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="Courses">
+                    <div class="col-md-12">
+                        <items-list items="courses" item-name="'course'"></items-list>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="Degrees">
+                    <div class="col-md-12">
+                        <items-list items="degrees" item-name="'degree'"></items-list>
+                    </div>
+                </uib-tab>
+
+            </uib-tabset>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$root.organization">
+        <div class="col-md-12" id="my-other-element">
+            <uib-tabset class="ui-tab">
+
+                 <uib-tab heading="{{'degrees.enrolled' | translate}}" ng-if="!$root.organization">
+                    <div class="col-md-12 my-block-tab">
+                        <items-list items="user.enrolledDegrees" item-name="'degree'" show-completion="true" user="user"></items-list>
+                    </div>
+                </uib-tab>
+
+                 <uib-tab heading="{{'courses.enrolled' | translate}}">
+                    <div class="col-md-12 my-block-tab">
+                        <items-list items="user.enrolledCourses" class="mb" item-name="'course'" show-completion="true" user="user"></items-list>
+                    </div>
+                </uib-tab>
+
+            </uib-tabset>
+        </div>
+    </div>
+
+</section>

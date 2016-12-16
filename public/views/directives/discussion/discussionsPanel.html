@@ -1,0 +1,37 @@
+<div class="panel" ng-class="getPanelClass()">
+  <div class="panel-heading"> {{'discussions.title' | translate}}</div>
+    <div class="panel-body Discussions word-wrap" ng-if=" discussions.length > 0" >
+      <div ng-repeat="discussion in discussions">
+        <discussion object="discussion" on-remove="removeDiscussion(position)" position="{{$index}}"></discussion> 
+      </div>
+    </div>
+    <div class="new-discussion Discussion-new" >
+      <button class="btn btn-primary" ng-click="toggleForm()"  ng-hide="isFormActive()">
+        
+        {{'discussions.create-new' | translate}}
+      </button>
+      <form name="discussionsCreateForm" class="Discussion-form" ng-show="isFormActive()">
+        <div class="form-group">
+            <label for="objectiveLongDescription"
+                   data-translate="discussion.create.title"></label>
+            <input type="text" name="discussionTitle" class="form-control"
+                      ng-model="discussion.title"
+                      placeholder="{{'discussion.create.title.placeholder' | translate}}"
+                      />
+        </div>
+        <div class="form-group">
+
+            <textarea type="text" name="discussionDiscussionBody" class="form-control"
+                      ng-model="discussion.discussionBody"
+                      placeholder="{{'discussion.create.discussion-body.placeholder' | translate}}"
+                      rows="6"></textarea>
+        </div>
+        <div class="form-group Discussion-formBtns"  >
+          <button   class="btn btn-primary btn-sm Discussion-formBtnCancel"
+              data-translate="label-cancel" ng-click="toggleForm()"></button>
+            <button ng-click="createDiscussion();" class="btn btn-warning btn-sm Discussion-formBtnPublish"
+                     ng-disabled="!discussionsCreateForm.$valid" data-translate="label-post"></button>
+        </div>
+      </form>
+    </div>
+  </div>

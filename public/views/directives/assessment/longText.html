@@ -1,0 +1,16 @@
+<div class="form-group">
+    <label for="name">{{'directives.assessment.question' | translate}}</label>
+    
+    <p ng-show="!editMode[$index] && !assessment.new">{{ assessment.question }}</p>
+
+    <textarea type="text" name="question" class="form-control" rows="2" ng-model="assessment.question" ng-show="assessment.new || editMode[$index]"></textarea>
+    
+    <div ng-messages="assessment.question.$error" style="color:maroon" role="alert"
+         ng-if="assessment.question.$dirty">
+        <div ng-message="required" data-translate="label-required"></div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="name">{{'directives.assessment.answerAreaPlaceholder' | translate}}</label>
+    <textarea type="text" name="name" class="form-control" rows="3" ng-disabled="true"></textarea>
+</div>

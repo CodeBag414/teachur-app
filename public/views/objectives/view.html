@@ -1,0 +1,165 @@
+<section class="page">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div ui-view="breadcrumbs"></div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-8"><!-- start center form -->
+
+            <uib-tabset class="ui-tab">
+                <uib-tab heading="{{'objectives.view.objective'|translate }}">
+
+                    <div class="panel panel-primary" ng-show="objective.private">
+                        <div class="panel-body text-center">
+                            <h4 class="text-primary" data-translate="objectives.private"></h4>
+                            <invite-users button-text="{{'objectives.view.invite' | translate}}"></invite-users>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary view-panel-objective">
+                        <div class="panel-heading">
+                            <h3 id="item-name" class="panel-title" style="padding-right: {{ $root.studentView && !$root.currentUser.isCompleted(objective._id) ? '150px' : '170px'; }};">
+                                {{objective.name}} 
+                            </h3>
+                            <div class="actions">
+                                <a ng-show="$root.canUserEdit(objective)"
+                                  ui-sref="objectives.edit({id: objective._id})"
+                                  class="pull-right">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a role="button" ng-click="delete()"
+                                     class="pull-right clickable mr"
+                                     ng-show="$root.canUserEdit(objective)">
+                                     <i class="fa fa-trash"></i>
+                                </a>
+
+                                <label class="ui-radio-checkbox" ng-show="$root.studentView && !$root.currentUser.isTested(objective._id)">
+                                    <input name="radio{{$index}}" type="checkbox" ng-init="completed = $root.currentUser.isCompleted(objective._id)" ng-model="completed" ng-change="$root.currentUser.toggleComplete(objective._id)">
+                                    <span ng-show="!$root.currentUser.isTested(objective._id)">{{ 'label-completed' | translate }}</span>
+                                </label>
+
+                                <label class="ui-radio-checkbox tested" ng-show="$root.studentView && $root.currentUser.isTested(objective._id)">
+                                    <input name="radio{{$index}}" type="checkbox" ng-init="tested = $root.currentUser.isTested(objective._id)" ng-model="tested" disabled>
+
+                                    <span ng-show="$root.currentUser.isTested(objective._id)">{{ 'label-tested' | translate }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <h5 class="item-text-title"
+                                ng-if="objective.author.username || objective.author.firstName || objective.author.lastName">
+                                {{'label-author' | translate}}: <a ui-sref="userProfile({id: objective.author._id})">{{
+                                objective.author.username || objective.author.firstName + ' ' +
+                                objective.author.lastName }}</a>
+                            </h5>
+                            <!-- <h5 class="item-text-title" data-translate="objectives.view.long-description"></h5> -->
+                            <p class="item-text" ng-show="!showLong" compile="objective.longDescription | shortenDescription">
+                            </p>
+                            <p class="item-text" ng-show="showLong" compile="objective.longDescription">
+                            </p>
+                            <p class="text-right" ng-show="objective.longDescription">
+                                <button type="button" class="btn btn-link" ng-click="showLong = !showLong">
+                                    <span ng-show="!showLong">{{ 'label-more' | translate }}</span>
+                                    <span ng-show="showLong">{{ 'label-less' | translate }}</span>
+                                </button>
+                            </p>
+
+                            <h5 class="item-text-title">
+                                {{ 'objectives.view.recommended-media' | translate }} <add-media files="objective.recommendedMedia" small-btn="true" view-mode="true" item="objective" item-name="objective"></add-media>
+                            </h5>
+
+                            <view-files files="objective.recommendedMedia" view-mode="true" item="objective"></view-files>
+
+                        </div>
+                    </div>
+
+                    <assessment item="objective" item-name="objective" view-mode="true"></assessment>
+
+                </uib-tab>
+
+                <uib-tab heading="{{'objectives.view.prerequisites' | translate}}">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{objective.name}} <a ui-sref="objectives.edit({id: objective._id})"
+                                                                          class="pull-right"><i
+                                    class="fa fa-pencil"></i></a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <h5 class="item-text-title" data-translate="objectives.view.prerequisites"></h5>
+                            <items-list items="objective.prerequisites" item-name="'objective'"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" data-translate="objectives.view.related-objetives"></h5>
+                            <items-list items="objective.relatedObjectives" item-name="'objective'"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" for="keywords" data-translate="objectives.view.keywords"></h5>
+                            <p class="item-text" ng-repeat="keyword in objective.keywords">
+                                {{keyword.text}}
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="forms.create.code"></h5>
+                            <p class="item-text">
+                                {{objective.code}}
+                            </p>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="{{'objectives.view.current-use' | translate}}">
+
+                    <div class="panel panel-default" ng-if="currentUse.lessons">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                            {{'objectives.view.being' | translate}}
+                            <span class="text-info">{{'lessons' | translate}}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.lessons" item-name="'lesson'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" ng-if="currentUse.courses">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                              {{'objectives.view.being' | translate}}
+                            <span class="text-success">  {{'courses' | translate}}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.courses" item-name="'course'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" ng-if="currentUse.degrees">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                            {{'objectives.view.being' | translate}}
+                            <span class="text-warning">{{'degrees' | translate}}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.degrees" item-name="'degree'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+
+                </uib-tab>
+
+                <uib-tab heading="{{'objectives.view.assessment' | translate}}">
+                    <assessment item="objective" itemName="objective" view-mode="true"></assessment>
+                </uib-tab>
+
+            </uib-tabset>
+
+        </div>
+        <div class="col-sm-4" ng-if="!$root.isGuest()" style="padding-top: 42px;">
+            <discussions-panel model="objective" model-name="objective" modelid="{{objective._id}}"></discussions-panel>
+        </div>
+    </div>
+
+</section>

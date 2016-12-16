@@ -1,0 +1,23 @@
+<div class="modal-header intro-modal-header">
+    <h5 data-translate="callout.welcome"></h5>
+</div>
+<div class="modal-body intro-modal-body">
+    <div ng-include="window.baseUrl + '/views/modals/intro/step1.html'" ng-show="step === 1"></div>
+    <div ng-include="window.baseUrl + '/views/modals/intro/step2.html'" ng-show="step === 2"></div>
+    <div ng-include="window.baseUrl + '/views/modals/intro/step3.html'" ng-show="step === 3"></div>
+    <div ng-include="window.baseUrl + '/views/modals/intro/step4.html'" ng-show="step === 4"></div>
+    <div ng-include="window.baseUrl + '/views/modals/intro/step5.html'" ng-show="step === 5"></div>
+    <div ng-include="window.baseUrl + '/views/modals/intro/step6.html'" ng-show="step === 6"></div>
+    
+    <div class="text-center mt">
+        <button class="btn btn-default pull-left btn-float btn-skip" ng-click="cancel();">{{ 'label-skip' | translate }}</button>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 1}" ng-click="step = 1"></span>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 2}" ng-click="step = 2"></span>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 3}" ng-click="step = 3"></span>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 4}" ng-click="step = 4"></span>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 5}" ng-click="step = 5"></span>
+        <span class="fa fa-circle clickable" ng-class="{'text-primary': step === 6}" ng-click="step = 6"></span>
+        <button class="btn btn-primary pull-right btn-float btn-continue" ng-click="nextStep();">{{ 'label-continue' | translate }}</button>
+    </div>
+
+</div>

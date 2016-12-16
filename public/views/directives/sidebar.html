@@ -1,0 +1,22 @@
+<div class="col-md-4 right-sidebar">
+    <div class="affix">
+        <div class="panel" ng-class="getPanelClass();">
+            <div class="panel-heading">
+                <h3 class="panel-title" data-translate="directives.sidebar.related"></h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="sidebarSearch" data-translate="directives.sidebar.search"></label>
+                    <input type="text" class="form-control" ng-model="searchText" ng-model-options="{ debounce: 300 }" ng-change="search()">
+                </div>
+                <uib-tabset class="ui-tab">
+                    <uib-tab heading="{{relatedModelsMap[relatedModel].pluralName | lowercase | translate }}" ng-repeat="(relatedModel, relatedModelFilteredData) in relatedModelsFilteredData" ng-click="setActiveModel(relatedModel)">
+                        <items-list items="relatedModelFilteredData" item-name="relatedModel" is-draggable="true" copy-enabled="$index > 0 || relatedModels.length === 1"></items-list>
+
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+
+    </div>
+</div>

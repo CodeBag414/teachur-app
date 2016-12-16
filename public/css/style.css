@@ -1,0 +1,12 @@
+
+.item-description  {
+  position: absolute;
+  top: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+}
+
+.hovered .item-description  {
+  opacity: 1;
+}

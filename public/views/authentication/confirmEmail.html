@@ -1,0 +1,41 @@
+<div class="page-signin">
+
+    <div class="signin-header">
+        <div class="container text-center">
+            <section class="logo">
+                <a href="#/"><img ng-src="{{ $root.baseUrl }}/images/logo.png" alt="Teachur"></a>
+            </section>
+        </div>
+    </div>
+
+    <div class="signin-body">
+        <div class="container">
+            <div class="form-container">
+
+                <section class="row signin-social text-center">
+
+                    <div class="panel panel-success" ng-if="confirmationSuccessful">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">You have successfully confirmed your email</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a ui-sref="login">Go to the app.</a>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-danger" ng-if="!confirmationSuccessful && confirmationCompleted">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Confirmation unsuccessful</h3>
+                        </div>
+                        <div class="panel-body">
+                            Your email confirmation was not successful, please try again.
+                        </div>
+                    </div>
+                
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

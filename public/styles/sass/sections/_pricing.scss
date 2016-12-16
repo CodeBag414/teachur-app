@@ -1,0 +1,99 @@
+.fus-pricing {
+  color: #767676;
+}
+
+.fus-pricing .fus-overlay {
+  opacity: 0.4;
+}
+
+.fus-pricing .fus-pricing-table {
+  display: table;
+  width: 100%;
+}
+
+
+.fus-pricing .fus-pricing-table > [class*="col-"].fus-notfocus .media-list {
+  width:90%;
+  padding: 15px;
+}
+
+
+.fus-pricing .fus-pricing-table > [class*="col-"] {
+  display: table-cell;
+  vertical-align: middle;
+  float: none;
+}
+
+.fus-pricing .fus-pricing-table .media-list {
+  background: rgba(0,0,0,0.1);
+  border: 1px solid #767676;
+  padding: 25px;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media-list-item {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 10px;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media.disabled{
+
+  text-decoration: line-through;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media .media-object {
+  padding: 50px;
+  font-size: 22px;
+  font-weight: 400;
+  padding: 18px 8px;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media .media-object.glyphicon-ok-circle {
+  color: #D6DE23;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media .media-object.glyphicon-remove-circle {
+  color: #FFA1AE;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media .media-heading {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 7px;
+}
+
+.fus-pricing .fus-pricing-table .media-list .media .media-text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 140%;
+  margin: 0 0 0 0;
+  font-style: italic;
+  letter-spacing: 0px;
+  color: white;
+}
+
+.fus-pricing .fus-pricing-table .fus-list-header h5 {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 0;
+}
+
+.fus-pricing .fus-pricing-table .fus-list-header p {
+  font-size: 44px;
+  font-weight: 100;
+  text-align: center;
+}
+
+.fus-pricing .fus-pricing-table .fus-list-header small {
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

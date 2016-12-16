@@ -1,0 +1,248 @@
+<section class="page">
+    <form name="coursesCreateForm" ng-submit="createCourse()">
+        <div class="row">
+
+            <div ui-view="breadcrumbs" ng-if="$root.breadcrumbsObject.chainLength>0"></div>
+
+            <div class="col-md-8"><!-- start center form -->
+
+                <div class="panel panel-course" ng-show="course.private">
+                    <div class="panel-body text-center">
+                        <h4 class="text-primary" data-translate="courses.private"></h4>
+                        <invite-users button-text="Invite users"></invite-users>
+                    </div>
+                </div>
+
+                <div class="panel panel-course">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-with-button-title" data-translate="course"></h3>
+                        <div uib-tooltip="You must include a title in order to publish."
+                             tooltip-placement="bottom"
+                             tooltip-trigger="mouseenter" class="pull-right"
+                             tooltip-enable="!course.name">
+                            <button type="button" class="btn btn-orange btn-sm pull-right" ng-click="publish()"
+                                    data-translate="courses.create.publish" ng-if="!course.published || course.private"
+                                    ng-disabled="!course.name">
+                            </button>
+                        </div>
+                        <button id="save-btn" class="btn btn-primary btn-sm pull-right"
+                                data-translate="courses.create.save"
+                                ng-disabled="!coursesCreateForm.$valid"></button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="courseName" data-translate="courses.create.name"></label>
+                            <input type="text" name="courseName" class="form-control" ng-model="course.name"
+                                   placeholder="{{'courses.create.name.placeholder' | translate}}" ng-required="true">
+                            <div ng-messages="coursesCreateForm.courseName.$error" style="color:maroon" role="alert"
+                                 ng-if="coursesCreateForm.courseName.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="introVideo" data-translate="label-intro-video"></label>
+                            <input type="text" name="introVideo" class="form-control" ng-model="course.introVideo"
+                                   placeholder="{{'label-intro-video-placeholder' | translate}}">
+                        </div>
+
+                        <div class="form-group">
+                            <form name="form" style="margin-top: 20px;">
+                                <label for="" data-translate="courses.create.image"></label>
+                                <div>
+                                    <div style="max-height: 200px; margin-bottom: 10px;">
+                                        <img ng-src="{{course.image.url}}"
+                                             ng-if="course.image && !file.$ngfBlobUrl"
+                                             alt="" class="img-responsive" style="max-height: 200px; width: auto;">
+                                    </div>
+                                    <div style="max-height: 200px; margin-bottom: 10px;" ng-if="file.$ngfBlobUrl">
+                                        <img ng-src="{{file.$ngfBlobUrl}}" alt="" class="img-responsive"
+                                             style="max-height: 200px; width: auto;">
+                                    </div>
+                                    <div style="max-height: 200px; margin-bottom: 10px;" ng-if="course.croppedImage">
+                                        <img ng-src="{{course.croppedImage.url}}" alt="" class="img-responsive"
+                                             style="max-height: 200px; width: auto;">
+                                    </div>
+                                    <p>{{file.name}}</p>
+                                    <div class="btn btn-default" ngf-select ng-model="file" name="file"
+                                         ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB"
+                                         ngf-min-height="100">
+                                        <span data-translate="courses.create.choose-image"></span>
+                                    </div>
+                                    <div ng-if="course.image">
+                                        <a class="btn btn-primary"
+                                           ng-click="openCropPopup(course.image)"
+                                           data-translate="profile.image.crop" style="margin-top: 10px;"></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseShortDescription"
+                                   data-translate="courses.create.short-description"></label>
+                            <textarea type="text" name="courseShortDescription" class="form-control"
+                                      ng-model="course.shortDescription"
+                                      placeholder="{{'courses.create.short-description.placeholder' | translate}}"
+                                      rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseLongDescription" data-translate="courses.create.long-description"></label>
+                            <text-angular ng-model="course.longDescription"></text-angular>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseGoals" data-translate="courses.create.objectives"></label>
+                            <input type="text" name="courseGoals" class="form-control"
+                                   ng-keypress="checkIfEnterAndAddGoal($event)"
+                                   ng-model="newGoalName"
+                                   placeholder="{{'courses.create.objectives.placeholder' | translate}}">
+                            <div ng-repeat="goal in course.goals" class="goal-list-item">
+                                -{{goal}}
+                                <span class="pull-right remove-btn" ng-click="removeGoal(goal)">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <label>{{'courses.create.lessons' | translate}} <a ng-click="saveAndCreateNew('Lesson')"
+                                                                          class="btn btn-xs btn-orange"
+                                                                          style="background-color: #F29120; color: #fff;"
+                                                                          data-translate="lessons.new"></a></label>
+
+                        <items-list items="course.components" item-name="'lesson'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-lesson"
+                             ng-drop-success="onDropCompleteComponents($data,$event)"
+                             class="create-drop-zone">
+                            <p> {{'directives.drop.drag-lesson-or-create' | translate}} <a
+                                    ng-click="saveAndCreateNew('Lesson')"
+                                    style="color: #F29120;"
+                                    data-translate="lessons.new"></a></p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <project item="course" item-name="course" edit-mode="true"></project>
+
+                <div class="panel panel-course">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="courses.suggestedTexts"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <label>{{ 'courses.suggestedTexts' | translate }} <button type="button" class="btn btn-primary btn-sm" ng-click="showSearch = !showSearch">{{ 'courses.addSuggestedTexts' | translate }}</button></label>
+
+                        <div class="form-group text-center" ng-hide="course.suggestedTexts.length">
+                            <p>{{ 'courses.noSuggestedTexts' | translate }}</p>
+                        </div>
+                        
+                        <amazon-search ng-show="showSearch" texts="course.suggestedTexts"></amazon-search>
+
+                        <book-preview ng-repeat="text in course.suggestedTexts" book="text" edit-mode="true" delete-book="course.suggestedTexts.splice($index, 1)"></book-preview>
+                        
+                    </div>
+                </div>
+
+                <div class="panel panel-course">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="courses.create.course-information"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <label data-translate="courses.create.prerequisites"></label>
+
+                        <items-list items="course.prerequisites" item-name="'course'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true"
+                             ng-drop-id="drop-course"
+                             ng-drop-success="onDropCompletePrerequisites($data,$event)"
+                             class="create-drop-zone">
+                            <p>{{'directives.drop.courses.prerequisites' | translate}}</p>
+                        </div>
+
+                        <label data-translate="courses.create.related-courses"></label>
+
+                        <items-list items="course.relatedCourses" item-name="'course'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-course"
+                             ng-drop-success="onDropCompleteRelated($data,$event)"
+                             class="create-drop-zone">
+                            <p>{{'directives.drop.courses.related' | translate}}</p>
+                        </div>
+
+                        <div keywords="course.keywords" edit-mode="true"></div>
+
+                        <div class="form-group">
+                            <label for="code" data-translate="forms.create.code"></label>
+                            <input type="text" name="code" class="form-control" ng-model="course.code"
+                                      placeholder="{{'forms.create.code' | translate}}">
+                            <div ng-messages="coursesCreateForm.code.$error" style="color:maroon" role="alert"
+                                 ng-if="coursesCreateForm.code.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg pull-right"
+                                    data-translate="courses.create.save"
+                                    ng-disabled="!coursesCreateForm.$valid"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="panel panel-course" ng-if="!course.published || course.private">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="courses.create.publish"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-2" style="padding-left: 0;">{{'courses.create.visibility.title' |
+                                translate}}:</label>
+                            <div class="col-sm-10">
+
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'courses.create.private.tooltip' | translate}}">
+                                    <input name="radio1" type="radio" ng-value="true" ng-model="course.private"
+                                           ng-disabled="!$root.user.subscribed">
+                                    <span data-translate="private"></span>
+                                </label>
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'courses.create.public.tooltip' | translate}}">
+                                    <input name="radio2" type="radio" ng-value="false" ng-model="course.private">
+                                    <span data-translate="publish"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center" ng-show="!$root.user.subscribed">
+                            <h4 class="text-primary" data-translate="courses.create.private.upgrade"></h4>
+                            <payment-modal button-text="{{'upgrade-now' | translate}}"></payment-modal>
+                        </div>
+
+                        <div class="form-group">
+                            <div uib-tooltip="You must include a title on order to publish."
+                                 tooltip-placement="top"
+                                 tooltip-trigger="mouseenter" class="pull-right"
+                                 tooltip-enable="!degree.name">
+                                <button type="button" class="btn btn-orange btn-lg pull-right" ng-click="publish()"
+                                        data-translate="courses.create.publish" ng-disabled="!course.name">
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- end center form -->
+
+            <sidebar related-models="['lesson', 'course']" current-model="course"></sidebar>
+
+        </div>
+    </form>
+</section>

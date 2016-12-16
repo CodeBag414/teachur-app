@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 data-translate="administration.organizations.add"></h3>
+</div>
+<div class="modal-body">
+    <form novalidate name="addOrganizationForm">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" ng-model="organization.name"
+                           placeholder="Organization name" ng-required="true">
+                    <div ng-messages="addOrganizationForm.name.$error" style="color:maroon" role="alert"
+                         ng-if="addOrganizationForm.name.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" name="adminEmail" class="form-control" ng-model="organization.adminEmail"
+                           placeholder="Organization admin email" ng-required="true">
+                    <div ng-messages="addOrganizationForm.adminEmail.$error" style="color:maroon" role="alert"
+                         ng-if="addOrganizationForm.adminEmail.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                        <div ng-message="email" data-translate="label-email-validation"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="url" name="dbUrl" class="form-control" ng-model="organization.dbUrl"
+                           placeholder="Organization db url" ng-required="true">
+                    <div ng-messages="addOrganizationForm.dbUrl.$error" style="color:maroon" role="alert"
+                         ng-if="addOrganizationForm.dbUrl.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                        <div ng-message="url" data-translate="label-url-validation"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submit()" ng-disabled="!addOrganizationForm.$valid" data-translate="label-submit"></button>
+    <button class="btn btn-warning" ng-click="cancel()" data-translate="label-cancel"></button>
+</div>

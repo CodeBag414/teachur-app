@@ -1,0 +1,27 @@
+<section class="page">
+    
+    <div class="row" ng-show="$root.organization">
+        <div class="col-sm-12 text-right">
+            <button type="button" class="btn btn-primary" ng-click="openCopyContentModal()">Copy content from the main site</button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <uib-tabset active="active" class="ui-tab">
+                <uib-tab heading="{{'degrees' | translate}}" select="search('degree')" ng-hide="$root.organization">
+                    <div ng-include="window.baseUrl + '/views/administration/content/content.html'"></div>
+                </uib-tab>
+                <uib-tab heading="{{'courses' | translate}}" select="search('course')">
+                    <div ng-include="window.baseUrl + '/views/administration/content/content.html'"></div>
+                </uib-tab>
+                <uib-tab heading="{{'lessons' | translate}}" select="search('lesson')">
+                    <div ng-include="window.baseUrl + '/views/administration/content/content.html'"></div>
+                </uib-tab>
+                <uib-tab heading="{{'objectives' | translate}}" select="search('objective')">
+                    <div ng-include="window.baseUrl + '/views/administration/content/content.html'"></div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</section>

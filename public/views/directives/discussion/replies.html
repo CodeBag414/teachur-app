@@ -1,0 +1,19 @@
+<div class="Replies word-wrap">
+  <div ng-repeat="item_reply in discussionreplies">
+    <reply item="item_reply" on-remove="removeReply(position)" position="{{$index}}"></reply>
+  </div>
+
+</div>
+<div class="Reply-form">
+  <img class=" Reply-formImg img-responsive img-circle img-sm" ng-src="{{user | userImage}}" alt="Alt Text">
+  <form name="replyCreateForm" ng-submit="createReply()">
+
+     <div class="Reply-input img-push">
+      <textarea  rows="3" class="form-control input-sm" placeholder="{{'replies.text.placeholder' | translate}}" ng-model="reply.discussionReplyBody"></textarea>
+    </div>
+    <button class="Reply-btn btn btn-primary btn-sm">
+      <span class="glyphicon glyphicon glyphicon-edit"></span>
+    </button>
+
+  </form>
+</div>

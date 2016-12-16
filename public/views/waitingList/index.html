@@ -1,0 +1,45 @@
+<section class="page">
+    <div class="row">
+
+        <div class="col-md-12"><!-- start center form -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" ng-hide="$root.organization">Waiting list</h3>
+                    <h3 class="panel-title" ng-show="$root.organization">{{ 'inviteUsers' | translate }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchText"
+                               ng-model-options="{ debounce: 300 }" ng-change="search()" placeholder="Search by email">
+                    </div>
+                    <table class="table table-striped" ng-if="filteredData.length>0">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="user in filteredData">
+                            <td>{{ user.email}}</td>
+                            <td class="text-right">
+                                <button type="button" class="btn btn-success btn-sm" ng-hide="user.signupToken"
+                                        ng-click="grantAccess(user)">Grant access
+                                </button>
+                                <span class="text-success" ng-show="user.signupToken">Access granted</span>
+                                
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="delete(user)"><i class="fa fa-trash"></i></button>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <p ng-if="filteredData.length===0">
+                        <span data-translate="nothingToShow"></span>
+                    </p>
+                    <button type="button" class="btn btn-success btn-sm" ng-click="openAddEmailPopup()">Add user email
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

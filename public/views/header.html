@@ -1,0 +1,159 @@
+<header class="clearfix">
+    <a href="#/" data-toggle-min-nav
+       class="toggle-min"
+    ><i class="fa fa-bars"></i></a>
+
+    <!-- Logo -->
+    <div class="logo">
+        <a href="#/app">
+            <img ng-src="{{ $root.baseUrl }}/images/top_logo.png" alt="Teachur">
+        </a>
+    </div>
+
+    <!-- needs to be put after logo to make it working-->
+    <div class="menu-button" toggle-off-canvas>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+
+
+    <div class="top-nav">
+        <form class="navbar-form navbar-left" role="search" ng-submit="searchGlobal($event, searchGlobalText)">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="searchGlobalText" placeholder="Search" uib-tooltip="{{'label-searchall'| translate }}" tooltip-placement="bottom" tooltip-trigger="mouseenter">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+
+        <ul class="nav-right pull-right list-unstyled">
+
+            <li class="dropdown langs text-normal"  data-ng-controller="LangCtrl">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="{{baseUrl}}/images/flags/american.png" style="max-width: 22px;" class="hidden-md hidden-lg">
+                    <span class="hidden-sm hidden-xs">{{lang}}</span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu with-arrow pull-right" role="menu">
+                    <li data-ng-show="lang !== 'English' ">
+                        <a href="#" data-ng-click="setLang('English')"><img ng-src="{{$root.baseUrl}}/images/flags/american.png" style="max-width: 22px;"> English</a>
+                    </li>
+                    <li data-ng-show="lang !== 'Español' ">
+                        <a data-ng-click="setLang('Español')"><img ng-src="{{$root.baseUrl}}/images/flags/spanish.png" style="max-width: 22px;"> Spanish</a>
+                    </li>
+                    <li data-ng-show="lang !== 'Hindi' ">
+                     <a href="javascript:;" data-ng-click="setLang('Hindi')"><img ng-src="{{$root.baseUrl}}/images/flags/india.png" style="max-width: 22px;"> Hindi</a>
+                    </li>
+                    <!--<li data-ng-show="lang !== 'Portugal' ">
+                        <a href="javascript:;" data-ng-click="setLang('Portugal')"><img src="{{baseUrl}}/images/flags/portugal.png" style="max-width: 22px;">Portugal</a></li>
+                    <li data-ng-show="lang !== '中文' ">
+                        <a href="javascript:;" data-ng-click="setLang('中文')"><img src="{{baseUrl}}/images/flags/china.png" style="max-width: 22px;"> 中文</a></li>
+                    <li data-ng-show="lang !== '日本語' ">
+                        <a href="javascript:;" data-ng-click="setLang('日本語')"><img src="{{baseUrl}}/images/flags/japan.png" style="max-width: 22px;"> 日本語</a></li>
+                    <li data-ng-show="lang !== 'Русский язык' ">
+                        <a href="javascript:;" data-ng-click="setLang('Русский язык')"><img src="{{baseUrl}}/images/flags/russia.png" style="max-width: 22px;"> Русский язык</a></li>-->
+                </ul>
+            </li>
+
+            <li ng-show="$root.isGuest()">
+                <a ui-sref="login" class="btn btn-primary" style="background-color: #1C7EBB;">Login</a>
+            </li>
+
+            <li class="dropdown langs text-normal" ng-show="$root.user.isTeacher && $root.user.isStudent && !$root.isGuest()">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-eye"></i>
+                </a>
+                <ul class="dropdown-menu with-arrow pull-right" role="menu">
+                    <li>
+                        <a ui-sref="dashboard" ng-click="$root.studentView = false">View as teacher <i class="fa fa-check" ng-show="!$root.studentView"></i></a>
+                    </li>
+                    <li>
+                        <a ui-sref="dashboard" ng-click="$root.studentView = true">View as student  <i class="fa fa-check" ng-show="$root.studentView"></i></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown langs text-normal" ng-show="$root.user.isTeacher && !$root.isGuest()">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <ul class="dropdown-menu with-arrow pull-right" role="menu">
+                    <li>
+                        <a ui-sref="objectives.create" data-translate="objectives.new">New objective</a>
+                    </li>
+                    <li>
+                        <a ui-sref="lessons.create" data-translate="lessons.new">New lesson</a>
+                    </li>
+                    <li>
+                        <a ui-sref="courses.create" data-translate="courses.new">New course</a>
+                    </li>
+                    <li>
+                        <a ui-sref="degrees.create" data-translate="degrees.new">New degree</a>
+                    </li>
+                </ul>
+            </li>
+            <!--             <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="fa fa-magic nav-icon"></span>
+                            </a>
+                            <ul class="dropdown-menu pull-right color-switch" data-ui-color-switch>
+                                <li><a href="javascript:;" class="color-option color-some_color" data-style="some_color"></a></li>
+                            </ul>
+                        </li> -->
+            <li class="dropdown text-normal nav-profile" ng-show="!$root.isGuest()">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    <img ng-src="{{$root.user.twitterImage}}" ng-if="!$root.user.image && $root.user.twitterImage"
+                         alt="" class="img-circle img30_30">
+                    <img ng-src="{{$root.user.facebookImage}}" ng-if="!$root.user.image && $root.user.facebookImage"
+                         alt="" class="img-circle img30_30">
+                    <img ng-src="{{$root.user.image.url}}" ng-if="!$root.user.croppedImage && $root.user.image" alt=""
+                         class="img-circle img30_30">
+                    <img ng-src="{{$root.user.croppedImage.url}}" ng-if="$root.user.croppedImage" alt=""
+                         class="img-circle img30_30">
+                    <img ng-src="{{$root.baseUrl}}/images/default-avatar.png" alt="avatar" class="img-circle img30_30"
+                         ng-if="!$root.user.image && !$root.user.twitterImage && !$root.user.facebookImage">
+                    <span class="hidden-xs">
+                        <span>{{ $root.user.username || $root.user.firstName + " " + $root.user.lastName }}</span>
+                    </span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu with-arrow pull-right">
+                    <li>
+                        <a ui-sref="currentUserProfile">
+                            <i class="fa fa-user"></i>
+                            <span data-translate="profile.my">My profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="payments.upgradeAccount">
+                            <i class="fa fa-star"></i>
+                            <span data-translate="account.upgrade">Upgrade account</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="howItWorks">
+                             <i class="fa fa-map-signs"></i>
+                             <span data-translate="howItWorks"></span>
+                         </a>
+                   </li>
+                     <li>
+                         <a ui-sref="invite">
+                              <i class="fa fa-plus"></i>
+                              <span data-translate="inviteUsers"></span>
+                          </a>
+                    </li>
+                   <li>
+                        <a href="#" ng-click="logout()">
+                            <i class="fa fa-sign-out"></i>
+                            <span data-translate="user.logout">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+</header>

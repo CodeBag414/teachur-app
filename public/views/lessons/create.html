@@ -1,0 +1,166 @@
+<section class="page">
+    <form name="lessonsCreateForm" ng-submit="createLesson()">
+        <div class="row">
+
+            <div ui-view="breadcrumbs" ng-if="$root.breadcrumbsObject.chainLength>0"></div>
+
+            <div class="col-md-8"><!-- start center form -->
+
+                <div class="panel panel-lesson" ng-show="lesson.private">
+                    <div class="panel-body text-center">
+                        <h4 class="text-primary" data-translate="lessons.create.private"></h4>
+                        <invite-users button-text="Invite users"></invite-users>
+                    </div>
+                </div>
+
+                <div class="panel panel-lesson">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-with-button-title" data-translate="lesson"></h3>
+                        <div uib-tooltip="You must include a title on order to publish."
+                             tooltip-placement="bottom"
+                             tooltip-trigger="mouseenter" class="pull-right"
+                             tooltip-enable="!lesson.name">
+                            <button type="button" class="btn btn-orange btn-sm pull-right" ng-click="publish()"
+                                    data-translate="lessons.create.publish" ng-if="!lesson.published || lesson.private"
+                                    ng-disabled="!lesson.name">
+                            </button>
+                        </div>
+                        <button id="save-btn" class="btn btn-primary btn-sm pull-right"
+                                data-translate="lessons.create.save"
+                                ng-disabled="!lessonsCreateForm.$valid"></button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="lessonName" data-translate="lessons.create.name"></label>
+                            <input type="text" name="lessonName" class="form-control" ng-model="lesson.name"
+                                   placeholder="{{'lessons.create.name.placeholder' | translate}}" ng-required="true">
+                            <div ng-messages="lessonsCreateForm.lessonName.$error" style="color:maroon" role="alert"
+                                 ng-if="lessonsCreateForm.lessonName.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="introVideo" data-translate="label-intro-video"></label>
+                            <input type="text" name="introVideo" class="form-control" ng-model="lesson.introVideo"
+                                   placeholder="{{'label-intro-video-placeholder' | translate}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lessonShortDescription"
+                                   data-translate="lessons.create.short-description"></label>
+                            <textarea type="text" name="lessonShortDescription" class="form-control"
+                                      ng-model="lesson.shortDescription"
+                                      placeholder="{{'lessons.create.short-description.placeholder' | translate}}"
+                                      rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lessonLongDescription" data-translate="lessons.create.long-description"></label>
+                            <text-angular ng-model="lesson.longDescription"></text-angular>
+                        </div>
+
+                        <label>{{'lessons.create.objectives' | translate}} <a ng-click="saveAndCreateNew('Objective')"
+                                                                              class="btn btn-xs btn-orange"
+                                                                              data-translate="objectives.new"></a></label>
+
+                        <items-list items="lesson.components" item-name="'objective'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-objective"
+                             ng-drop-success="onDropCompleteComponents($data,$event)" class="create-drop-zone">
+                            <p>{{'directives.drop.drag-objective-or-create' | translate}} <a
+                                    ng-click="saveAndCreateNew('Objective')" style="color: #F29120;"
+                                    data-translate="objectives.new"></a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <project item="lesson" item-name="lesson" edit-mode="true"></project>
+
+                <div class="panel panel-lesson">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="lessons.create.lesson-information"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <label data-translate="lessons.create.prerequisites"></label>
+
+                        <items-list items="lesson.prerequisites" item-name="'lesson'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-lesson"
+                             ng-drop-success="onDropCompletePrerequisites($data,$event)" class="create-drop-zone">
+                            <p data-translate="lessons.create.drop.prerequisites"></p>
+                        </div>
+
+                        <label data-translate="lessons.create.related-lessons"></label>
+
+                        <items-list items="lesson.relatedLessons" item-name="'lesson'" is-sortable="true"></items-list>
+
+                        <div ng-drop="true" ng-drop-id="drop-lesson"
+                             ng-drop-success="onDropCompleteRelated($data,$event)" class="create-drop-zone">
+                            <p data-translate="lessons.create.drop.related-lessons"></p>
+                        </div>
+
+                        <div keywords="lesson.keywords" edit-mode="true"></div>
+
+                        <div class="form-group">
+                            <label for="code" data-translate="forms.create.code"></label>
+                            <input type="text" name="code" class="form-control" ng-model="lesson.code"
+                                      placeholder="{{'forms.create.code' | translate}}">
+                            <div ng-messages="lessonsCreateForm.code.$error" style="color:maroon" role="alert"
+                                 ng-if="lessonsCreateForm.code.$dirty">
+                                <div ng-message="required" data-translate="label-required"></div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg pull-right" data-translate="lessons.create.save" ng-disabled="!lessonsCreateForm.$valid"></button>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-lesson" ng-if="!lesson.published || lesson.private">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" data-translate="lessons.create.publish"></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-2" style="padding-left: 0;">{{'lessons.create.visibility.title' |
+                                translate}}:</label>
+                            <div class="col-sm-10">
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'lessons.create.private.tooltip' | translate}}">
+                                    <input name="radio1" type="radio" ng-value="true" ng-model="lesson.private"
+                                           ng-disabled="!$root.user.subscribed">
+                                    <span data-translate="private"></span>
+                                </label>
+                                <label class="ui-radio grey-tooltip" tooltip-trigger tooltip-placement="top"
+                                       tooltip="{{'lessons.create.public.tooltip' | translate}}">
+                                    <input name="radio2" type="radio" ng-value="false" ng-model="lesson.private">
+                                    <span data-translate="public"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center" ng-show="!$root.user.subscribed">
+                            <h4 class="text-primary" data-translate="lessons.create.private.upgrade"></h4>
+                            <payment-modal button-text="Upgrade Now"></payment-modal>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-orange btn-lg pull-right" ng-click="publish()"
+                                    data-translate="lessons.create.publish" ng-disabled="!lesson.name"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><!-- end center form -->
+
+            <sidebar related-models="['objective', 'lesson']" current-item="'lesson'"></sidebar>
+
+        </div>
+    </form>
+</section>

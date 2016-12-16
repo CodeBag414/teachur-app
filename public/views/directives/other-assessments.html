@@ -1,0 +1,36 @@
+<div class="panel" ng-class="getPanelClass()">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {{ panelTitle }}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-center" ng-show="assessmentsEmpty">
+            <h5>{{'directives.assessment.noAssessmentParts' | translate}}</h5>
+        </div>
+        <div ng-repeat="(itemId, _assessments) in assessments" ng-show="assessments">
+
+            <div ng-repeat="assessment in _assessments">
+
+                <div class="mt text-center" ng-hide="assessment.files.length">
+                    <h5>{{'directives.assessment.noRecommendedMedia' | translate}}</h5>
+                </div>
+
+                <view-files files="assessment.files" edit-mode="editMode[$index]" view-mode="viewMode"></view-files>
+
+                <div class="mt" ng-include="window.baseUrl + '/views/directives/assessment/' + assessment.type + '.html'" ng-if="assessment.type"></div>
+
+                <div>
+                    <p ng-show="assessment.author" class="mt">{{ 'label-submittedBy' | translate }}: <a ui-sref="userProfile({id: assessment.author._id})">{{ file.author.firstName ? assessment.author.firstName + ' ' + assessment.author.lastName : assessment.author.username }}</a></p>
+                </div>
+
+                <div>
+                    <a ui-sref="{{ getLink(itemId)}}">{{'directives.other-assessments.parentItem' | translate}}</a>
+                </div>
+
+                <hr>
+
+            </div>
+        </div>
+    </div>
+</div>

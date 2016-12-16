@@ -1,0 +1,20 @@
+<section class="page">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" data-translate="administration.settings.emailSettings"></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" ng-repeat="setting in settings">
+                        <label>{{ setting.key }}</label>
+                        <input type="text" ng-model="setting.value" class="form-control">
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-primary" ng-click="save()">{{ 'operations.save' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

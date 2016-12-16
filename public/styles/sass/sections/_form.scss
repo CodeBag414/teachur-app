@@ -1,0 +1,21 @@
+
+// form validation
+.form-validation{
+    .ng-pristine {} // When it is first initialized
+    .ng-dirty {} // When the view changes
+    .ng-valid.ng-dirty {
+        border-color: $brand-success;
+    }
+    .ng-invalid.ng-dirty {
+        border-color: $brand-danger;
+    }
+}
+
+.create-drop-zone {
+    border: 1px dashed #CBD5DD;
+    margin-bottom: 20px;
+    p {
+        padding: 20px 10px;
+        margin: 0;
+    }
+}

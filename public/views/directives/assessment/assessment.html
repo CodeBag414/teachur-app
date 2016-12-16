@@ -1,0 +1,65 @@
+<div class="panel" ng-class="getPanelClass()">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {{'directives.assessment.assessmentParts' | translate}}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-center" ng-hide="item.assessments.length">
+            <h5>{{'directives.assessment.noAssessmentParts' | translate}}</h5>
+        </div>
+        <div ng-repeat="assessment in item.assessments" ng-show="item.assessments.length">
+            
+            <hr ng-hide="$first">
+
+            <label>
+                {{'directives.assessment.recommendedMedia' | translate}} <add-media files="assessment.files" view-mode="viewMode" small-btn="true" item="item" ng-show="editMode[$index]"></add-media>
+            </label>
+
+            <div class="mt text-center" ng-hide="assessment.files.length">
+                <h5>{{'directives.assessment.noRecommendedMedia' | translate}}</h5>
+            </div>
+
+            <view-files files="assessment.files" edit-mode="editMode[$index]" view-mode="viewMode"></view-files>
+
+            <div class="mt" ng-include="window.baseUrl + '/views/directives/assessment/' + assessment.type + '.html'" ng-if="assessment.type"></div>
+
+            <div ng-show="!$root.isGuest()">
+                <p ng-show="assessment.author" class="mt">{{ 'label-submittedBy' | translate }}: <a ui-sref="userProfile({id: assessment.author._id})">{{ file.author.firstName ? assessment.author.firstName + ' ' + assessment.author.lastName : assessment.author.username }}</a></p>
+            </div>
+
+            <div class="row" ng-show="!editMode[$index] && $root.canUserEdit(assessment)">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary" ng-click="editMode[$index] = true" ng-hide="editMode[$index] && !assessment.new">Edit</button>
+                </div>
+            </div>
+            
+            <div class="row" ng-show="editMode[$index] && !edit">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-danger" ng-click="removeAssessment($index)"><i class="fa fa-trash"></i> Remove</button>
+                    <button type="button" class="btn btn-primary" ng-click="saveAssessment(assessment, $index)">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="!$root.isGuest()">
+            <hr>
+            <div class="col-sm-12">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <select name="assessmentPartType" class="form-control" ng-model="assessmentPartType" ng-options="assessmentPartType.type as assessmentPartType.name for assessmentPartType in assessmentPartTypes">
+                            <option value="">{{'directives.assessment.assessmentPartType' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="addAssessmentPart()">
+                            {{'directives.assessment.addAssessmentPart' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <div ng-show="assessmentPartTypeRequiredError">
+                    <p class="text-danger">{{ 'directives.assessment.pleaseSelectType' | translate }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

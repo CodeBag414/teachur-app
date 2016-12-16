@@ -1,0 +1,191 @@
+<div class="panel" ng-class="getPanelClass()">
+    <div ng-show="itemName !== 'lesson'">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{'directives.project' | translate}}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="text-center" ng-hide="item.projects.length">
+                <h5>{{'directives.project.noProjects' | translate}}</h5>
+            </div>
+            <div ng-repeat="project in item.projects" ng-show="item.projects.length">
+                
+                <hr ng-hide="$first">
+
+                <!-- <div ng-show="project.files.length || editMode[$index]">
+                    <label>{{'directives.project.recommendedMedia' | translate}} <add-media files="project.files" view-mode="viewMode" small-btn="true" item="item" ng-show="editMode[$index]"></add-media></label>
+
+                    <div class="mt text-center" ng-hide="project.files.length">
+                        <h5>{{'directives.project.noRecommendedMedia' | translate}}</h5>
+                    </div>
+
+                    <view-files files="project.files" edit-mode="editMode[$index]" view-mode="viewMode"></view-files>
+                </div> -->
+
+                <div class="mt form-group">
+                    <label for="name">{{'directives.project.description' | translate}}</label>
+                    
+                    <p ng-show="!editMode[$index] && !project.new">{{ project.description }}</p>
+
+                    <textarea type="text" name="description" class="form-control" rows="2" ng-model="project.description" ng-show="project.new || editMode[$index]"></textarea>
+                    
+                    <div ng-messages="project.description.$error" style="color:maroon" role="alert"
+                         ng-if="project.description.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                    </div>
+                </div>
+
+                <label>
+                    {{'directives.project.recommendedMedia' | translate}} <add-media files="project.files" view-mode="true" edit-mode="false" small-btn="true" item="project" ng-show="editMode[$index]" is-project="true"></add-media>
+                </label>
+
+                <div class="mt text-center" ng-hide="project.files.length">
+                    <h5>{{'directives.project.noRecommendedMedia' | translate}}</h5>
+                </div>
+
+                <view-files files="project.files" edit-mode="editMode[$index]" view-mode="!editMode[$index]" is-project="true"></view-files>
+
+                <!-- <div class="form-group">
+                    <label for="name">{{'directives.project.exampleProject' | translate}}</label>
+                    <p><a ng-show="!editMode[$index] && !project.new" href="project.link">{{ project.link }}</a></p>
+                    <input type="text" class="form-control" ng-model="project.link" ng-show="project.new || editMode[$index]" placeholder="{{ 'directives.project.url' | translate }}">
+                </div> -->
+
+                <div class="form-group" ng-show="!editMode[$index] && !project.new && $root.studentView">
+                    <label>{{'directives.project.submittedProject' | translate}}</label>
+                    <p ng-show="userProjects[project._id]" ng-repeat="userProject in userProjects[project._id]">
+                        <a href="{{ userProject.file.url }}" target="_blank">{{ userProject.file.name || userProject.file.url }}</a>
+                        <i class="fa fa-trash clickable" ng-click="deleteStudentProject(userProject._id)"></i>
+                    </p>
+                    <p ng-show="!userProjects[project._id] && itemName !== 'lesson'">
+                        {{ 'directives.project.noSubmittedProject' | translate }}
+                    </p>
+                    <div>
+                        <button type="button" class="btn btn-primary" ngf-select ng-model="studentProject" ngf-change="uploadStudentProject(studentProject, project._id)" name="file" ngf-min-height="100">
+                            {{ 'directives.project.upload' | translate }}
+                        </button>  
+                    </div>
+                </div>
+
+                <div ng-show="!$root.isGuest()">
+                    <p ng-show="project.author" class="mt">{{ 'label-submittedBy' | translate }}: <a ui-sref="userProfile({id: project.author._id})">{{ project.author.firstName ? project.author.firstName + ' ' + project.author.lastName : project.author.username }}</a></p>
+                </div>
+
+                <div class="row" ng-show="!editMode[$index] && $root.canUserEdit(project)">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary" ng-click="editMode[$index] = true" ng-hide="editMode[$index] && !project.new">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="row" ng-show="editMode[$index] && !edit">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-danger" ng-click="removeProject($index)"><i class="fa fa-trash"></i> Remove</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveProject(project, $index)">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="edit">
+                <hr>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="addProject()">
+                            {{'directives.project.addProject' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-show="itemName === 'lesson'">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{'directives.activity' | translate}}
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="text-center" ng-hide="item.projects.length">
+                <h5>{{'directives.activity.noProjects' | translate}}</h5>
+            </div>
+            <div ng-repeat="project in item.projects" ng-show="item.projects.length">
+                
+                <hr ng-hide="$first">
+
+                <div ng-show="project.files.length">
+                    <label>{{'directives.activity.recommendedMedia' | translate}} <add-media files="project.files" view-mode="viewMode" small-btn="true" item="item" ng-show="editMode[$index]"></add-media></label>
+
+                    <div class="mt text-center" ng-hide="project.files.length">
+                        <h5>{{'directives.activity.noRecommendedMedia' | translate}}</h5>
+                    </div>
+
+                    <view-files files="project.files" edit-mode="editMode[$index]" view-mode="viewMode"></view-files>
+                </div>
+
+                <div class="mt form-group">
+                    <label for="name">{{'directives.activity.description' | translate}}</label>
+                    
+                    <p ng-show="!editMode[$index] && !project.new">{{ project.description }}</p>
+
+                    <textarea type="text" name="description" class="form-control" rows="2" ng-model="project.description" ng-show="project.new || editMode[$index]"></textarea>
+                    
+                    <div ng-messages="project.description.$error" style="color:maroon" role="alert"
+                         ng-if="project.description.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name">{{'directives.activity.exampleProject' | translate}}</label>
+                    <p><a ng-show="!editMode[$index] && !project.new" href="project.link">{{ project.link }}</a></p>
+                    <input type="text" class="form-control" ng-model="project.link" ng-show="project.new || editMode[$index]" placeholder="{{ 'directives.activity.url' | translate }}">
+                </div>
+
+                <div class="form-group" ng-show="!editMode[$index] && !project.new">
+                    <label>{{'directives.activity.submittedProject' | translate}}</label>
+                    <p ng-show="userProjects[project._id]" ng-repeat="userProject in userProjects[project._id]">
+                        <a href="{{ userProject.file.url }}" target="_blank">{{ userProject.file.name || userProject.file.url }}</a>
+                        <i class="fa fa-trash clickable" ng-click="deleteStudentProject(userProject._id)"></i>
+                    </p>
+                    <p ng-show="!userProjects[project._id] && itemName === 'lesson'">
+                        {{ 'directives.activity.noSubmittedProject' | translate }}
+                    </p>
+                    <div>
+                        <button type="button" class="btn btn-primary" ngf-select ng-model="studentProject" ngf-change="uploadStudentProject(studentProject, project._id)" name="file" ngf-min-height="100">
+                            {{ 'directives.activity.upload' | translate }}
+                        </button>  
+                    </div>
+                </div>
+
+                <div ng-show="!$root.isGuest()">
+                    <p ng-show="project.author" class="mt">{{ 'label-submittedBy' | translate }}: <a ui-sref="userProfile({id: project.author._id})">{{ project.author.firstName ? project.author.firstName + ' ' + project.author.lastName : project.author.username }}</a></p>
+                </div>
+
+                <div class="row" ng-show="!editMode[$index] && $root.canUserEdit(project)">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary" ng-click="editMode[$index] = true" ng-hide="editMode[$index] && !project.new">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="row" ng-show="editMode[$index] && !edit">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-danger" ng-click="removeProject($index)"><i class="fa fa-trash"></i> Remove</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveProject(project, $index)">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="edit">
+                <hr>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="addProject()">
+                            {{'directives.activity.addProject' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,6 @@
+<div class="form-group">
+    <label for="keywords" data-translate="objectives.create.keywords"></label>
+    <tags-input ng-model="keywords" placeholder="{{'objectives.create.keywords' | translate}}" replace-spaces-with-dashes="false"  display-property="text">
+        <auto-complete source="searchKeywords($query)"></auto-complete>
+    </tags-input>
+</div>

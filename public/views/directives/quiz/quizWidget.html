@@ -1,0 +1,21 @@
+<div class="panel" ng-class="getPanelClass()">
+  <div class="panel-heading"> {{'quiz' | translate}}</div>
+  <div class="panel-body">
+    <div ng-show="quiz.attempts.length" style="margin-bottom: 15px;">
+    	<h4>
+    		{{ 'quiz.score' | translate }}: {{ quiz.score / quiz.totalAssessments * 100 | number:2 }}%
+    	</h4>
+    	<p>{{ 'quiz.attempts' | translate }}</p>
+    	<div ng-repeat="attempt in quiz.attempts">
+    		<hr ng-hide="$first" style="margin: 5px 0;" />
+    		<p>
+    		  {{ 'quiz.score' | translate }}: {{ attempt.score / quiz.totalAssessments * 100 | number:2 }}%
+
+    		  <i class="fa fa-eye clickable pull-right" ng-click="showCorrectAnswers($index)"></i>
+    		</p>
+    		<small>{{ 'quiz.takenOn' | translate }}: {{ attempt.takenAt | date }}</small>
+    	</div>
+    </div>
+    <button type="button" class="btn btn-primary" ng-click="startQuiz()" ng-disabled="quiz.attempts.length && quiz.score / quiz.totalAssessments >= 1">{{ 'quiz.start' | translate }}</button>
+  </div>
+</div>

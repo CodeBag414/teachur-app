@@ -1,0 +1,37 @@
+<section class="page">
+    <div class="row">
+
+        <div ui-view="breadcrumbs" ng-if="$root.breadcrumbsObject.chainLength>0"></div>
+
+        <div class="col-md-10"><!-- start center form -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" data-translate="courses"></h3>
+                </div>
+                <div class="panel-body" ng-show="!$root.studentView">
+
+                    <div class="form-group">
+                        <label class="ui-radio grey-tooltip">
+                            <input name="createdByMe" type="radio" ng-value="1" ng-model="createdByMe" ng-change="loadData(createdByMe)">
+                            <span data-translate="home.createdByMe"></span>
+                        </label>
+                        <label class="ui-radio grey-tooltip">
+                            <input name="createdByMe" type="radio" ng-value="0" ng-model="createdByMe" ng-change="loadData(createdByMe)">
+                            <span data-translate="home.myFavorites"></span>
+                        </label>
+                    </div>
+
+                    <items-list items="courses" item-name="'course'" state="state" is-draggable="false"></items-list>
+
+                </div>
+
+                <div class="panel-body" ng-show="$root.studentView">
+
+                    <items-list items="$root.user.enrolledCourses" item-name="'course'" state="state" is-draggable="false"></items-list>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

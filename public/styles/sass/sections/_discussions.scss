@@ -1,0 +1,249 @@
+.right-discussions {
+	.options {
+		display:none;
+	}
+
+	.media:hover {
+		& > .media-body {
+				& > div.options {
+					display:block;
+				}
+		}
+	}
+
+}
+.DiscussionDelete {
+ 	background: #FFF;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	font-size: 13px;
+	top: 0px;
+	right: 10px;
+	&:hover{
+		color: #E94B3B;
+	}
+	&::after {
+		position: absolute;
+ 		height: 100px;
+		content: " ";
+		background: #E94B3B;
+		width: 0px;
+		@include transition(.1s ease-in all);
+		top: 0;
+		right: -10px;
+	}
+}
+.Discussions {
+	padding: 0px;
+}
+.Discussion {
+	margin-bottom: 0px;
+	padding-bottom: 2px;
+	margin-top: 0px;
+	.Discussion-btns {
+		margin-bottom: 10px;
+		text-align: right;
+		padding-right: 10px;
+		.Discussion-delete ,.Discussion-edit{
+			padding: 1px 3px;
+		}
+		button:first-letter {
+			text-transform: uppercase;
+		}
+	}
+
+	.Discussion-head{
+		padding: 5px;
+		border-bottom: 0px;
+		background:#FFF;
+		position: relative;
+		overflow: hidden;
+
+	}
+
+	.Discussion-modeEdit {
+		 @extend .Discussion-head;
+		 .Discussion-delete {
+				display: block;
+			}
+			.Discussion-time {
+				right: 46px;
+				bottom: 2px;
+				top: auto;
+			}
+
+	}
+	.Discussion-img > img{
+		float: left;
+		width: 40px;
+	}
+	.Discussion-info {
+		margin-left: 8px;
+		float: left;
+		position: relative;
+		display: inline-block;
+		width: 60%;
+		color: #767676!important;
+	}
+	.Discussion-name {
+		font-size: 12px;
+		display: block;
+		text-transform: none;
+		color: #767676!important;
+	}
+	.Discussion-title {
+		text-transform: none;
+		display: block;
+		font-size: 14px;
+		font-weight: bold;
+		color: #767676!important;
+	}
+	.Discussion-body {
+		border-top: 1px solid #e9e9e9;
+		width: 100%;
+		display: block;
+		overflow: hidden;
+		color: #767676!important;
+		.Discussion-text {
+			color: #767676!important;
+			display: block;
+			padding: 8px 10px;
+		}
+
+	}
+
+	.Discussion-time {
+		position: absolute;
+		font-size: 11px;
+		top: 5px;
+		right: 10px;
+		color: #767676!important;
+	}
+ 	.Discussion-moreLess {
+		cursor: pointer;
+		position: absolute;
+		font-size: 23px;
+		font-weight: bold;
+		bottom: 0px;
+		right: 10px;
+		height: 32px;
+		background: #FFF;
+		border: none;
+		color: #767676!important;
+	}
+
+
+
+	.new-discussion form{
+		padding: 20px;
+	}
+}
+
+.Replies {
+	background: #F7F7F7;
+	display: block;
+	padding: 0px 10px 0px 10px
+}
+.Reply {
+	border-bottom: 1px solid #EEE;
+	display: block;
+	overflow: hidden;
+	position: relative;
+	padding: 8px 0px 8px 37px;
+	.Reply-user {
+		font-weight: bold;
+	}
+}
+.Reply-btns {
+	padding-right: 0px !important;
+}
+.Reply-img {
+	position: absolute;
+	top: 5px;
+	left: 0px;
+	width: 30px;
+}
+.Reply-text{
+	display: block;
+	padding-bottom: 5px;
+}
+.Reply-form{
+	background: #FFFFFF;
+	display: block;
+	overflow: hidden;
+	padding: 8px 10px 20px 47px;
+	position: relative;
+}
+.Reply-date{
+	font-size: 10px;
+}
+.Reply-formImg{
+	position: absolute;
+	left: 10px;
+	width: 30px;
+}
+.Reply-input {
+	float: left;
+	width: 80%;
+}
+.Reply-btn {
+	float: right;
+	margin-left: 2px;
+	width: 15%;
+}
+.Reply-btnSm {
+	padding: 1px 3px;
+}
+.Reply-updateInput {
+	margin-bottom: 5px;
+}
+.Reply-delete {
+	@extend .DiscussionDelete ;
+	background: #F7F7F7;
+	top: auto;
+	bottom: 2px;
+	right: -4px;
+	&::after {
+		bottom: -2px;
+		top: auto;
+		left: auto;
+		right: -10px;
+		height: 0px;
+		width: 1000px;
+	}
+	&:hover::after{
+		height:3px;
+	}
+}
+.Discussion-new {
+	overflow: hidden;
+	padding: 10px;
+}
+.Discussion-btnNew {
+	padding-left: 5px;
+}
+.Discussion-formBtnCancel {
+	margin-right: 5px;
+
+}
+.Discussion-panel {
+	margin-top: 62px;
+}
+
+.Discussion-alert{
+	margin-top: 10px;
+	.Discussion-alertText{
+		display: block;
+		margin-bottom: 5px;
+	}
+	.Discussion-alertBtns {
+		text-align: right;
+		button {
+			padding: 1px 3px;
+		}
+	}
+	.close{
+		display: none;
+	}
+}

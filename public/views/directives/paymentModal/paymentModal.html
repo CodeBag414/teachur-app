@@ -1,0 +1,94 @@
+<div class="modal-payment-header modal-header ">
+      <img class="modal-payment-logo" src="images/top_logo.png" alt="techur logo">
+      <button type="button" class="modal-payment-close close"  aria-label="Close" ng-click="cancel()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+</div>
+<form id="stripe-form" stripe-form="handleStripe" name="myForm">
+<div class="modal-body">
+    <h3 class="modal-payment-title modal-title">Please enter your credit card information</h3>
+    <div class="alert alert-success text-center" role="alert" ng-if="success">
+        Thank you for your purchase.
+    </div>
+
+
+      <div class="form-group">
+
+         <div class="input-group">
+           <div class="input-group-addon"><span class="glyphicon glyphicon-credit-card"></span></div>
+          <input type="text" class="form-control" ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type" placeholder="Card number"/>
+
+         </div>
+
+      </div>
+      <div class="row" >
+        <div class="form-group col-sm-6">
+          <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+           <input type="text" class="form-control" ng-model="expiry" payments-validate="expiry" payments-format="expiry" placeholder="MM/YY"/>
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+           <input type="text" class="form-control" ng-model="cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type" placeholder="CVC"/>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+<div class="modal-footer">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+      <input type="text" class="form-control" placeholder="Name on card" >
+    </div>
+  </div>
+
+
+
+  <div class="form-group text-center">
+    <button class="btn btn-success btn-large btn-block">Upgrade your account</button>
+    <button type="button" ng-click="cancel()" class="btn btn-link" role="button">Close</button>
+  </div>
+</div>
+</form>
+<script type="text/ng-template" id="paymentFormModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Please enter your credit card information</h3>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-success text-center" role="alert" ng-if="success">
+            Thank you for your purchase.
+        </div>
+        <form stripe-form="handleStripe" name="myForm">
+
+          <div class="form-group">
+            <label for="">Card number</label>
+            <input type="text" class="form-control" ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type"/>
+          </div>
+
+          <div class="form-group">
+            <label for="">Expiry</label>
+            <input type="text" class="form-control" ng-model="expiry" payments-validate="expiry" payments-format="expiry" />
+          </div>
+
+          <div class="form-group">
+            <label for="">Name on card </label>
+            <input type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label for="">CVC</label>
+            <input type="text" class="form-control" ng-model="cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type"/>
+          </div>
+
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success btn-large btn-block">Upgrade your account</button>
+            <button type="button" ng-click="cancel()" class="btn btn-link" role="button">Close</button>
+          </div>
+        </form>
+    </div>
+</script>

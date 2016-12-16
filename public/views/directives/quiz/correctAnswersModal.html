@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h4>{{ attemptIndex + 1 }}. {{ 'quiz.attempt' | translate }}</h4>
+    <h4>{{ 'quiz.score' | translate }}: {{ attempt.score / quiz.totalAssessments * 100 | number:2 }}%</h4>
+    <small>{{ 'quiz.takenOn' | translate }}: {{ attempt.takenAt | date }}</small>
+</div>
+<div class="modal-body">
+    <div class="row" ng-repeat="userAnswer in userAnswers">
+        <div class="col-md-12">
+        	<hr ng-hide="$first">
+        	<h3>{{ userAnswer.assessment.question }}</h3>
+        	<h4>
+                <i class="fa fa-check text-success" ng-show="userAnswer.correct"></i> 
+                <i class="fa fa-close text-danger" ng-hide="userAnswer.correct"></i>
+                {{ userAnswer.assessment.answers[attempt.userAnswers[$index].index].text }}
+            </h4>
+			<p>{{ 'objective' | translate }}: <a ui-sref="objectives.view({ id: userAnswer.objective._id })" ng-click="close()">{{ userAnswer.objective.name }}</a></p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="close()" data-translate="label-cancel"></button>
+</div>

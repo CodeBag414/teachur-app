@@ -1,0 +1,115 @@
+<!doctype html>
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+        <title>Teachur</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="shortcut icon" href="/landingPage/images/favicon.ico">
+        <link rel="apple-touch-icon" sizes="57x57" href="/landingPage/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/landingPage/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/landingPage/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/landingPage/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/landingPage/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/landingPage/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/landingPage/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/landingPage/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/landingPage/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/landingPage/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/landingPage/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/landingPage/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/landingPage/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/landingPage/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- <link rel="stylesheet" href="{{baseUrl}}/build/app.css"> -->
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <!-- needs images, font... therefore can not be part of ui.css -->
+        <link rel="stylesheet" href="{{baseUrl}}/libs/ng-img-crop-full-extended/compile/minified/ng-img-crop.css">
+        <link rel="stylesheet" href="{{baseUrl}}/libs/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{baseUrl}}/libs/weather-icons/css/weather-icons.min.css">
+        <link rel='stylesheet' href='{{baseUrl}}/libs/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+
+        <link rel="stylesheet" href="{{baseUrl}}/libs/sweetalert/dist/sweetalert.css">
+
+        <!-- build:css styles/ui.css -->
+        <link rel="stylesheet" href="{{baseUrl}}/libs/morris.js/morris.css">
+        <!-- endbuild -->
+        
+        <link rel="stylesheet" href="{{baseUrl}}/libs/ng-tags-input/ng-tags-input.min.css">
+        <link rel="stylesheet" href="{{baseUrl}}/libs/ng-tags-input/ng-tags-input.bootstrap.min.css">
+        <link rel="stylesheet" href="{{baseUrl}}/libs/bootstrap-tour/build/css/bootstrap-tour-standalone.css" />
+        <link rel='stylesheet' href='{{baseUrl}}/libs/textAngular/dist/textAngular.css'>
+        <link rel="stylesheet" href="{{baseUrl}}/libs/KaTeX/dist/katex.min.css">
+
+        <link rel="stylesheet" href="{{baseUrl}}/styles/css/main.css">
+        <link rel="stylesheet" href="{{baseUrl}}/css/style.css">
+
+        <script src="{{baseUrl}}/vendors/modernizr.js"></script>
+
+        <script>
+            if (!Modernizr.localstorage || !Modernizr.canvas || !Modernizr.filereader) {
+                window.location.href = "/please-upgrade-your-browser";
+            }
+        </script>
+
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        <script>
+          Stripe.setPublishableKey('pk_test_v3aj7A56ZY7mNsgtYbTf7aNg');
+        </script>
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-77067554-1', 'auto');
+        </script>
+
+        <script>
+            window.baseUrl = '{{ baseUrl }}';
+            window.organization = '{{ organization }}';
+        </script>
+
+    </head>
+    <body data-ng-app="teachur" id="teachur" data-custom-background="https://images.unsplash.com/photo-1413752567787-baa02dde3c65?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=83f26bd60b06f072224866efda8573a9" data-off-canvas-nav>
+        <!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div data-ng-controller="AppController" >
+            <div data-ng-hide="isSpecificPage()"
+                 data-ng-cloak>
+                <section data-ng-include=" '{{baseUrl}}/views/header.html' "
+                     id="header" class="top-header"></section>
+
+                <aside data-ng-include=" '{{baseUrl}}/views/nav.html' "
+                     id="nav-container"></aside>
+            </div>
+
+            <div class="view-container" ng-if="!isSpecificPage()">
+                <section ui-view id="content" class="animate-fade-up"></section>
+
+            </div>
+
+            <div class="view-container" ng-if="isSpecificPage()">
+                <section ui-view class="animate-fade-up"></section>
+
+            </div>
+        </div>
+
+        <!-- <div ng-include="'/views/footer.html'"></div> -->
+
+        <!-- app.js -->
+        <script src="{{baseUrl}}/build/app.js"></script>
+
+    </body>
+</html>

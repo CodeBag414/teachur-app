@@ -1,0 +1,10 @@
+<div class="row clickable mt">
+    <div class="col-sm-2">
+        <a href="{{ book.url }}" target="_blank"><img ng-src="{{book.imageUrl}}" class="img-responsive"></a>
+    </div>
+    <div class="col-sm-10">
+        <i class="fa fa-trash pull-right" ng-click="deleteBook()" ng-show="editMode"></i>
+        <p>Title: <a href="{{ book.url }}" target="_blank">{{ book.title }}</a></p>
+        <p>Author: {{ book.author }}</p>
+    </div>
+</div>

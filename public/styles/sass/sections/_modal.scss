@@ -1,0 +1,107 @@
+.modal-payment {
+    padding-top: 70px;
+    .modal-header {
+      border: none;
+    }
+    .modal-content {
+        min-width: 340px;
+    }
+    .modal-body{
+        background: #767676;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        .modal-title {
+          font-size: 15px;
+          color: #CCC;
+          font-weight: bold;
+          margin-bottom: 15px;
+          text-align: center;
+        }
+        .input-group {
+          .input-group-addon,input {
+            background: #666666;
+            border: none;
+            color: #FFFFFF;
+            .glyphicon-calendar {
+              color: #1C7EBB;
+            }
+            .glyphicon-credit-card {
+              color: #F29120;
+            }
+            .glyphicon-lock {
+                color: #23AE89;
+            }
+          }
+        }
+        .form-control {
+          color: #FFFFFF;
+        }
+        .input-group-addon {
+          font-size: 18px;
+          padding-right: 0px;
+        }
+    }
+    .modal-footer {
+      background: #FFFFFF;
+      margin-top: 0px;
+      .input-group {
+        border-bottom: 1px solid #CCCCCC;
+        .input-group-addon,input {
+          border: none;
+          background: #FFFFFF;
+          .glyphicon-user {
+            color: #CCC;
+          }
+        }
+        .input-group-addon {
+          font-size: 18px;
+          padding-right: 0px;
+        }
+      }
+    }
+}
+.modal-payment {
+    .modal-header-success {
+      background: #23AE89;
+
+    }
+    .modal-payment-title-success {
+      color: #FFFFFF;
+    }
+    .modal-payment-succes {
+      background: #23AE89;
+      text-align: center;
+      padding: 15px 0px 0px 0px;
+    }
+    .modal-payment-success-msg {
+      background: #FFFFFF;
+      padding: 24px 20px 20px 20px;
+
+    }
+
+    .modal-payment-icon {
+      font-size: 60px;
+      display: inline-block;
+      margin: 0 auto;
+      color: #FFF;
+      border: 4px solid #FFFFFF;
+      padding: 10px;
+      border-radius: 50%;
+    }
+}
+.modal-payment-header {
+    background: #767676;
+    height: 50px;
+    display: block;
+    padding: 0px;
+    position: relative;
+}
+.modal-payment-logo {
+    margin-top: 8px;
+    margin-left: 10px;
+}
+.modal-payment-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

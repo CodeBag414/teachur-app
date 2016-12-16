@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-sm-3 text-left" ng-repeat="interests in interestGroups">
+        <div class="form-group" ng-repeat="interest in interests">
+            <label class="ui-checkbox">
+                <input name="checkbox1" type="checkbox" ng-model="checked[$parent.$index * chunkSize + $index]" ng-change="addInterest(checked[$parent.$index * chunkSize + $index], interest);">
+                <span>{{ interest.name }}</span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="keywords" data-translate="directives.interests.addOther"></label>
+            <tags-input ng-model="userCreatedInterests" placeholder="{{'directives.interests.addOther' | translate}}" replace-spaces-with-dashes="false" display-property="{{ currentUser.language || 'en' }}" on-tag-added="addUserInterest($tag)" on-tag-removed="removeUserInterest($tag)">
+                <auto-complete source="searchInterests($query)"></auto-complete>
+            </tags-input>
+        </div>
+    </div>
+</div>

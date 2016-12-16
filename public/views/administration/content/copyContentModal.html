@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 data-translate="administration.organizations.add"></h3>
+</div>
+<div class="modal-body">
+    <form novalidate name="addContentForm">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <input type="text" name="name" ng-model="course" placeholder="{{'administration.organizations.searchContent' | translate}}" uib-typeahead="searchResult as searchResult.name for searchResult in searchMainContent($viewValue)" class="form-control" typeahead-show-hint="true" typeahead-min-length="1" typeahead-wait-ms="300" ng-required="true">
+                    <div ng-messages="addContentForm.name.$error" style="color:maroon" role="alert"
+                         ng-if="addContentForm.name.$dirty">
+                        <div ng-message="required" data-translate="label-required"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="submit()" ng-disabled="!addContentForm.$valid" data-translate="label-submit"></button>
+    <button class="btn btn-warning" ng-click="cancel()" data-translate="label-cancel"></button>
+</div>

@@ -1,0 +1,6 @@
+node_modules/
+.sass-cache/
+nodemon.json
+.DS_Store
+*/.DS_Store
+nodemon.json

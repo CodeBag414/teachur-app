@@ -1,0 +1,63 @@
+<div class="panel Discussion" ng-class="getPanelClass()">
+  <div   class="panel-heading Discussion-head" >
+    <a class="Discussion-img pull-left" href="javascript:;">
+      <img ng-src="{{discussion.author | userImage }}" alt="" class=" img-circle">
+
+    </a>
+    <div class="Discussion-info">
+        <span class="Discussion-title">{{discussion.title}}</span>
+        <span class="Discussion-name">{{discussion.author.username}}</span>
+
+    </div>
+    <span class="Discussion-time">{{discussion.date | date :short }}</span>
+    <button class="Discussion-moreLess"   data-toggle="collapse" data-target="#collapseDis{{position}}" aria-expanded="false" aria-controls="collapseDis{{$index}}" >...</button>
+
+   </div>
+   <div class="media-body Discussion-body">
+
+
+     <div class="Discussion-bodyContaier collapse" id="collapseDis{{position}}">
+       <div class="Discussion-text">
+          <span  ng-show="!editMode || !isOwn()">{{discussion.discussionBody}}</span>
+          <form name="discussionsCreateForm" class="Discussion-form" ng-show="editMode">
+            <div class="form-group">
+                <label data-translate="discussion.create.title"></label>
+                <input type="text" name="discussionTitle" class="form-control"
+                          ng-model="title"
+                          placeholder="{{'discussion.create.title.placeholder' | translate}}"
+                          />
+            </div>
+            <div class="form-group">
+
+                <textarea type="text" name="text" class="form-control"
+                          ng-model="text"
+                          placeholder="{{'discussion.create.discussion-body.placeholder' | translate}}"
+                          rows="6"></textarea>
+            </div>
+            <div class="form-group Discussion-formBtns"  >
+              <button   class="btn btn-primary btn-sm Discussion-formBtnCancel"
+                  data-translate="label-cancel" ng-click="cancel()"></button>
+                <button ng-click="update()" class="btn btn-warning btn-sm Discussion-formBtnPublish"
+                         ng-disabled="!discussionsCreateForm.$valid" data-translate="label-update"></button>
+            </div>
+          </form>
+         </div>
+        <div class="Discussion-btns"  ng-if="isOwn()" ng-show="!editMode">
+          <button   class="btn btn-primary btn-sm Discussion-delete"
+              data-translate="label-delete" ng-click="showCancelAlert()" ></button>
+            <button   ng-click="toggleEditMode()" class="btn btn-warning btn-sm Discussion-edit"
+                      data-translate="label-edit"></button>
+
+        </div>
+        <uib-alert  type="danger" ng-show="discussion.showAlert" class="Discussion-alert" ng-if="isOwn()" >
+          <span class="Discussion-alertText" data-translate="discussions.alert-delete"></span>
+          <div class="Discussion-alertBtns">
+            <button class="btn btn-sm btn-secondary" ng-click="showCancelAlert()">{{'label-cancel' | translate}}</button>
+            <button class="btn btn-sm btn-danger" ng-click="deleteDiscussion()">Ok</button>
+          </div>
+        </uib-alert>
+       <replies discussionid="{{discussion._id}}" discussionreplies="discussion.replies"></replies>
+     </div>
+
+   </div>
+</div>

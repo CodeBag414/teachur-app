@@ -1,0 +1,33 @@
+<section class="page">
+    <div class="row">
+
+        <div class="col-md-12"><!-- start center form -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'inviteUsers' | translate }}</h3>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-center">You have {{ 3 - users.length }} invites left.</h4>
+                    <h4 ng-show="users.length > 0">Invited users</h4>
+                    <table class="table table-striped" ng-if="users.length>0">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="user in users">
+                            <td>{{ user.email}}</td>
+                        </tr>
+                    </table>
+                    <p ng-if="users.length===0">
+                        <span data-translate="nothingToShow"></span>
+                    </p>
+                    <button type="button" class="btn btn-success btn-sm" ng-click="openAddEmailPopup()" ng-hide="3 - users.length === 0">
+                        {{ 'inviteUsers' | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

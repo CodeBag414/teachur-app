@@ -1,0 +1,181 @@
+<section class="page">
+    <div class="row">
+
+        <div ui-view="breadcrumbs"></div>
+
+        <div class="col-md-8"><!-- start center form -->
+
+            <uib-tabset class="ui-tab">
+                <uib-tab heading="{{'courses.view.course-detail' | translate}}">
+
+                    <div class="panel panel-course" ng-show="course.private">
+                        <div class="panel-body text-center">
+                            <h4 class="text-primary" data-translate="courses.view.private"></h4>
+                            <invite-users button-text="{{'label-invite-user' | translate}}"></invite-users>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-course">
+                        <div class="panel-heading">
+                            <h3 id="item-name" class="panel-title">{{course.name}} <a ng-show="$root.canUserEdit(course)"
+                                                                       ui-sref="courses.edit({id: course._id})"
+                                                                       class="pull-right"><i class="fa fa-pencil"></i></a>
+                                                                    <a ng-show="$root.canUserEdit(course)" role="button"
+                                                                        ng-click="delete()" class="pull-right clickable mr"><i class="fa fa-trash"></i></a>
+                                                                    <a  role="button"
+                                                                        ng-click="export('csv')"
+                                                                        class="pull-right clickable mr">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                    <a  role="button"
+                                                                        ng-click="export('xls')"
+                                                                        class="pull-right clickable mr">
+                                                                        <i class="fa fa-file-excel-o"></i>
+                                                                    </a>
+
+                                                                    <label class="pull-right ui-radio-checkbox fix-radio" ng-show="$root.studentView">
+                                                                        <input name="radio{{$index}}" type="checkbox" ng-init="completed = $root.currentUser.isEnrolled('course', course._id)" ng-model="completed" ng-change="$root.currentUser.toggleEnroll('course', course._id);" ng-disabled="$root.currentUser.isMandatoryCourse(course._id);">
+                                                                        <span>{{ 'label-enrolled' | translate }}</span>
+                                                                    </label>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="intro-video-wrap" ng-if="course.introVideo">
+                                <url-embed url="course.introVideo"></url-embed>
+                            </div>
+                            <h5 class="item-text-title"
+                                ng-if="course.author.username ||course.author.firstName || course.author.lastName">
+                                {{'label-author' | translate}}: <a ui-sref="userProfile({id: course.author._id})">{{
+                                course.author.username ||course.author.firstName + ' ' + course.author.lastName }}</a>
+                            </h5>
+                            <div style="max-height: 200px;">
+                                <img ng-src="{{course.image.url}}" ng-if="course.image" alt="" class="img-responsive"
+                                     style="max-height: 200px; width: auto;">
+                            </div>
+                            <h5 class="item-text-title" data-translate="courses.view.short-description"></h5>
+                            <p class="item-text">
+                                {{course.shortDescription}}
+                            </p>
+                            <h5 class="item-text-title" data-translate="courses.view.long-description"></h5>
+                            <p class="item-text" ng-show="!showLong" compile="course.longDescription.substr(0, 250)">
+                            </p>
+                            <p class="item-text" ng-show="showLong" compile="course.longDescription">
+                            </p>
+                            <p class="text-right" ng-show="course.longDescription">
+                                <button type="button" class="btn btn-link" ng-click="showLong = !showLong">
+                                    <span ng-show="!showLong">{{ 'label-more' | translate }}</span>
+                                    <span ng-show="showLong">{{ 'label-less' | translate }}</span>
+                                </button>
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="courses.view.goals"></h5>
+                            <p class="item-text" ng-repeat="goal in course.goals">
+                                -{{goal}}
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="courses.view.lessons"></h5>
+
+                            <items-list items="course.components" item-name="'lesson'" state="state"
+                                        is-draggable="false" parent-item="course"></items-list>
+
+                        </div>
+                    </div>
+
+                    <project item="course" item-name="course" view-mode="true"></project>
+
+                    <div class="panel panel-course">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" data-translate="courses.suggestedTexts"></h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <label>{{ 'courses.suggestedTexts' | translate }}</label>
+
+                            <div class="form-group text-center" ng-hide="course.suggestedTexts.length">
+                                <p>{{ 'courses.noSuggestedTexts' | translate }}</p>
+                            </div>
+
+                            <book-preview ng-repeat="text in course.suggestedTexts" book="text"></book-preview>
+                            
+                        </div>
+                    </div>
+
+                </uib-tab>
+
+                <uib-tab heading="{{'courses.view.prerequisites' | translate }}">
+                    <div class="panel panel-course">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{course.name}} <a ui-sref="courses.edit({id: course._id})"
+                                                                       class="pull-right">
+                                <i class="fa fa-pencil"></i></a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <h5 class="item-text-title">{{'courses.view.prerequisites' | translate }}</h5>
+                            <items-list items="course.prerequisites" item-name="'course'" state="state"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" data-translate="courses.view.related-courses"></h5>
+                            <items-list items="course.relatedCourses" item-name="'course'" state="state"
+                                        is-draggable="false"></items-list>
+
+                            <h5 class="item-text-title" for="keywords" data-translate="courses.view.keywords"></h5>
+                            <p class="item-text" ng-repeat="keyword in course.keywords">
+                                {{keyword.text}}
+                            </p>
+
+                            <h5 class="item-text-title" data-translate="forms.create.code"></h5>
+                            <p class="item-text">
+                                {{course.code}}
+                            </p>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="{{'courses.view.current-use' | translate}} ">
+                    <div class="panel panel-default" ng-if="currentUse.lessons">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                                {{'courses.view.being' | translate}}<span class="text-info">LESSONS</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.lessons" item-name="'lesson'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" ng-if="currentUse.courses">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                                {{'courses.view.being' | translate}} <span class="text-success">COURSES</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.courses" item-name="'course'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" ng-if="currentUse.degrees">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="text-primary">{{objective.name}}</span>
+                                {{'courses.view.being' | translate}} <span class="text-warning">DEGREES</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <items-list items="currentUse.degrees" item-name="'degree'"
+                                        is-draggable="false"></items-list>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="{{'directives.project' | translate}}">
+                    <project item="course" item-name="course" view-mode="true"></project>
+                </uib-tab>
+            </uib-tabset>
+
+        </div>
+        <div class="col-sm-4" ng-if="!$root.isGuest()" style="padding-top: 42px;">
+            <quiz item-name="course" item="course"></quiz>
+            <project-widget item-name="course" item="course"></project-widget>
+            <discussions-panel model="course" model-name="course" modelid="{{course._id}}"></discussions-panel>
+        </div>
+    </div>
+</section>

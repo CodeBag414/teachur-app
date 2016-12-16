@@ -1,0 +1,58 @@
+<div class="page-signin">
+
+    <div class="signin-header">
+        <div class="container text-center">
+            <section class="logo">
+                <a href="#/"><img ng-src="{{ $root.baseUrl }}/images/logo.png" alt="Teachur"></a>
+            </section>
+        </div>
+    </div>
+
+    <div class="signin-body">
+        <div class="container">
+            <div class="form-container">
+
+                <section class="row signin-social text-center">
+                    <h3>Join the {{ $root.organization || 'Teachur community' }} by getting on the waiting list for a beta invite.</h3>
+                    <p>
+                        
+                    </p>
+                </section>
+
+                <form name="form" class="form-horizontal" ng-submit="submit()" novalidate>
+                    <div class="alert alert-success text-center" role="alert" ng-if="formSubmitted && success">
+                        You have successfuly signed up on the access waiting list. <br>
+                        You will get an email as soon as you are granted access to the application.
+                    </div>
+                    <div class="alert alert-danger text-center" role="alert" ng-if="formSubmitted && form.$invalid">
+                        Email is required
+                    </div>
+                    <div class="alert alert-danger text-center" role="alert" ng-if="formSubmitted && error">
+                        You are already signed up to the waiting list
+                    </div>
+                    <fieldset ng-hide="formSubmitted && (error || success)">
+                        <div class="form-group">
+                            <input type="text"
+                                       class="form-control text-center"
+                                       placeholder="email"
+                                       ng-model="email",
+                                       ng-required="true"
+                                       >
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Get on waiting list</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <section>
+                    <p class="text-center text-muted text-small">Already have an account? <a ui-sref="login">Login</a></p>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

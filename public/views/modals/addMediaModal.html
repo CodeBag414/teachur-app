@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 data-translate="modal.addmedia.title" ng-show="!editMode"></h3>
+    <h3 data-translate="modal.addmedia.edit-title" ng-show="editMode"></h3>
+</div>
+<div class="modal-body">
+    <div>
+        <label for="" data-translate="file.choose"></label>
+        <div>
+            <div style="margin-bottom: 10px;" ng-if="file.url && (file.external || (file.type && file.type.indexOf('image') !== -1))">
+                <url-embed url="file.url"></url-embed>
+            </div>
+            <div style="max-height: 200px; margin-bottom: 10px;" ng-if="file.$ngfBlobUrl">
+                <img ng-src="{{file.$ngfBlobUrl}}" alt="" class="img-responsive"
+                     style="max-height: 200px; width: auto;">
+            </div>
+            <p ng-show="!file.external && !file.url">{{ file.name }}</p>
+            <a href="{{file.url}}" ng-show="!file.external && file.url" target="_blank">{{ file.name || file.url }}</a>
+        </div>
+
+        <div class="form-inline mt">
+            <div class="form-group">
+                <div class="btn btn-default" ngf-select ng-model="newFile" ngf-change="addNewFile($index, newFile)" name="file"
+                     ngf-min-height="100">
+                    <span data-translate="file.choose"></span>
+                </div>
+            </div>
+            <div class="form-group ml mr">
+                <label>{{'or' | translate}}</label>
+            </div>
+            <div class="form-group">
+                <input type="text" name="fileUrl" class="form-control" ng-model="url" placeholder="{{'modal.addmedia.url-placeholder' | translate}}">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" ng-click="addUrl($index, url)">{{'operations.add' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt" ng-hide="isProject">
+        <label for="mediaDescription" data-translate="modal.addmedia.description"></label>
+        <textarea name="mediaDescription" class="form-control" ng-model="file.description" placeholder="{{'modal.addmedia.description-placeholder' | translate}}" rows="3"></textarea>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="save()" data-translate="modal.addmedia.add-label" ng-show="!editMode"></button>
+    <button type="button" class="btn btn-primary" ng-click="save()" data-translate="operations.save" ng-show="editMode"></button>
+    <button type="button" class="btn btn-warning" ng-click="cancel()" data-translate="label-cancel"> </button>
+</div>

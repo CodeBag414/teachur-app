@@ -1,0 +1,58 @@
+<div>
+    <div ng-repeat="file in files">
+        <div class="text-right" ng-show="!addMode && editMode || $root.canUserEdit(file)">
+            <span class="btn-remove-media" ng-click="removeFile($index)"><i class="fa fa-trash"></i></span>
+            <add-media ng-hide="isProject" edit-mode="true" files="files" file="file" index="$index" view-mode="viewMode" item="item" is-project="isProject"></add-media>
+        </div>
+        <div style="margin-bottom: 10px;" ng-if="file.url && (file.external || (file.type && file.type.indexOf('image') !== -1))  && !isAudio(file) && !isVideo(file)">
+            <url-embed url="file.url"></url-embed>
+        </div>
+        <div style="max-height: 200px; margin-bottom: 10px;" ng-if="file.$ngfBlobUrl">
+            <img ng-src="{{file.$ngfBlobUrl}}" alt="" class="img-responsive"
+                 style="max-height: 200px; width: auto;">
+        </div>
+
+        <div class="mb" ng-if="isVideo(file) && !file.newFile">
+            <videogular vg-theme="theme">
+                <vg-media vg-src="videoSources[$index]">
+                </vg-media>
+                <vg-controls>
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <vg-fullscreen-button></vg-fullscreen-button>
+                </vg-controls>
+            </videogular>
+        </div>
+
+        <div ng-show="isAudio(file) && !file.newFile" class="audio-player mb">
+            <div class="text-center">
+                {{ sec2str(round(audioSources[$index].currentTime)) }} / {{ sec2str(round(audioSources[$index].duration)) }}
+            </div>
+            <div>
+                <uib-progressbar class="progress-striped active" value="round(audioSources[$index].progress * 100)"></uib-progressbar>
+            </div>
+            <div>
+                <span ng-show="!audioSources[$index].paused" ng-click="audioSources[$index].paused ? audioSources[$index].play() : audioSources[$index].pause()"><i class="fa fa-pause"></i></span>
+                <span ng-show="audioSources[$index].paused" ng-click="audioSources[$index].paused ? audioSources[$index].play() : audioSources[$index].pause()"><i class="fa fa-play"></i></span>
+                <span class="fa-stack" class="clickable" ng-click="audioSources[$index].muting = !audioSources[$index].muting">
+                  <i class="fa fa-ban fa-stack-1x"></i>
+                  <i class="fa fa-volume-off fa-stack-1x"></i>
+                </span>
+            </div>
+        </div>
+
+        <p ng-show="!file.external && !file.url">{{ file.name }}</p>
+        <a href="{{file.url}}" ng-show="file.url" target="_blank">{{ file.name || file.url }}</a>
+        <p ng-show="file.description" class="mt">{{ file.description }}</p>
+        <p ng-show="file.author && !isProject" class="mt">{{ 'label-submittedBy' | translate }}: <a ui-sref="userProfile({id: file.author._id})">{{ file.author.firstName ? file.author.firstName + ' ' + file.author.lastName : file.author.username }}</a></p>
+        <hr>
+    </div>
+</div>

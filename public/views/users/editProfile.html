@@ -1,0 +1,27 @@
+<section class="page">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 ng-hide="hideImage" data-translate="profile.edit"></h2>
+            <h2 ng-show="hideImage" data-translate="profile.edit"></h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <uib-tabset active="active" class="ui-tab">
+                        <uib-tab heading="{{'profile.personal' | translate}}" select="search('degree')">
+                            <div ng-include="window.baseUrl + '/views/users/tabs/personal.html'"></div>
+                        </uib-tab>
+                        <uib-tab heading="{{'profile.professional' | translate}}" select="search('course')">
+                            <div ng-include="window.baseUrl + '/views/users/tabs/professional.html'"></div>
+                        </uib-tab>
+                        <uib-tab heading="{{'profile.social' | translate}}" select="search('lesson')">
+                            <div ng-include="window.baseUrl + '/views/users/tabs/social.html'"></div>
+                        </uib-tab>
+                        <uib-tab heading="{{'profile.interests' | translate}}" select="search('objective')">
+                            <div ng-include="window.baseUrl + '/views/users/tabs/interests.html'"></div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

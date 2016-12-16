@@ -1,0 +1,43 @@
+{
+  "name": "angular-embed",
+  "version": "2.0.3",
+  "description": "Retrieve an embed code for the given url using NoEmbed or Embedly",
+  "authors": [
+    {
+      "name": "Edouard Richard",
+      "email": "edouard@sourcefabric.org"
+    }
+  ],
+  "main": [
+    "dist/angular-embed.js"
+  ],
+  "ignore": [
+    "src",
+    "test",
+    "Gruntfile.js",
+    "**/.*"
+  ],
+  "repository": "https://github.com/superdesk/angular-embed",
+  "dependencies": {
+    "angular-embedly": "~0.0.6"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.0",
+    "angular-scenario": ">=1.2.0",
+    "angular": ">=1.2.0",
+    "angular-resource": ">=1.2.0"
+  },
+  "resolutions": {
+    "angular": ">=1.2.0"
+  },
+  "homepage": "https://github.com/superdesk/angular-embed",
+  "_release": "2.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.3",
+    "commit": "5646b49d791ac9df4db2f64e85bb3fdd6454dfee"
+  },
+  "_source": "git://github.com/superdesk/angular-embed.git",
+  "_target": "~2.0.3",
+  "_originalSource": "angular-embed"
+}
